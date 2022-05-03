@@ -1,2 +1,26 @@
-<h1>Items#index</h1>
-<p>Find me in app/views/items/index.html.erb</p>
+<table class="table">
+    <tr>
+        <th>
+            品名
+        </th>
+        <th>
+            在庫数
+        </th>
+        <th>
+            単位
+        </th>
+    </tr>
+    <% @items.each do |item| %>
+        <tr>
+            <td>
+                <%= item.name %>
+            </td>
+            <td>
+                <%= item.stock %>
+            </td>
+            <td>
+                <%= item.unit %>
+            </td>
+        </tr>
+    <% end %>
+<table>
