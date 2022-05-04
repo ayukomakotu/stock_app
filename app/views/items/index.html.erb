@@ -9,6 +9,10 @@
         <th>
             単位
         </th>
+        <th>
+            出入庫処理
+        </th>
+        
     </tr>
     <% @items.each do |item| %>
         <tr>
@@ -20,6 +24,9 @@
             </td>
             <td>
                 <%= item.unit %>
+            </td>
+            <td>
+                <%= link_to "出庫", out_stock_item_path(item) %>
             </td>
         </tr>
     <% end %>
