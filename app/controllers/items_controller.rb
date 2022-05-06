@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
       params.require(:item).permit(:id, :name, :stock, :unit, :process_number)
     end
 
-    # item_params[:stock]を出庫ならマイナス入庫ならプラスしたものを返す、その他編集なら何もしないものを返す
+    # item_params[:stock]を出庫ならマイナス入庫ならプラスしたものを返す、その他編集ならitem_paramsを返す
     # mergeメソッドでitem_paramsの値を変更したものをnew_item_paramsとして返す
     def new_item_params
       if params[:commit] == "出庫"
@@ -36,6 +36,8 @@ class ItemsController < ApplicationController
       elsif params[:commit] == "入庫"
         new_stock = (item_params[:stock].to_i + item_params[:process_number].to_i).to_s
         item_params.merge(:stock => new_stock)
+      else
+        item_params
       end
     end
 
