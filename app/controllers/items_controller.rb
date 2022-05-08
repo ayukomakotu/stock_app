@@ -8,12 +8,11 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(name: new_item_params[:name], 
-            stock: new_item_params[:stock], unit: new_item_params[:unit])
-      update_flash
+    if @item.update(item_params)
+      flash[:success] = "編集が完了しました"
       redirect_to items_path
     else
-      render_form
+      render 'edit'
     end
       
   end
