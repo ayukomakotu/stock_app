@@ -20,13 +20,13 @@
                 <%= item.name %>
             </td>
             <td>
-                <%= item.stock %>
+                <%= item.stock.number %>
             </td>
             <td>
                 <%= item.unit %>
             </td>
             <td>
-                <%= link_to "出庫", out_stock_item_path(item) %>
+                
             </td>
         </tr>
     <% end %>

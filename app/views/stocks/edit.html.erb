@@ -1,0 +1,18 @@
+<%= provide(:button_text, "出庫") %>
+
+
+<h1>出庫する数を入力してください</h1>
+<%= @stock.item.name %>
+<%= form_with(model: @stock, url: stock_path, method: :patch, local: true) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <!-- 出庫数 -->
+    <%= f.label :出庫数 %>
+    <%= f.number_field :process_number, min: 1 %>
+
+    <!-- 出庫する品に紐づいたstockのid -->
+    <%= f.hidden_field :id, :value => @stock.id %>
+
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
+<% end %>
