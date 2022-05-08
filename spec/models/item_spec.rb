@@ -21,11 +21,6 @@ RSpec.describe Item, type: :model do
             expect(dup_item).to be_invalid
         end
 
-        it "stockが空で無効になるか" do
-            @item.stock = nil
-            expect(@item).to be_invalid
-        end
-
         it "unitが空で無効になるか" do
             @item.unit = nil
             expect(@item).to be_invalid

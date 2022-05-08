@@ -7,7 +7,6 @@ RSpec.describe "IndexItems", type: :system do
         visit items_path
         # ページ上に特定の文字列が表示されているか
         expect(page).to have_content sample1.name
-        expect(page).to have_content sample1.stock
         expect(page).to have_content sample1.unit
     end
 end
