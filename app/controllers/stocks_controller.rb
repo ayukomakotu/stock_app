@@ -6,12 +6,16 @@ class StocksController < ApplicationController
   def update
     @stock = Stock.find(params[:id])
     @item = Item.find(@stock.item_id)
-    if params[:stock][:process_number] 
+    # presentはnil, "", " ", [], {}でなければtrueを返す
+    if params[:stock][:process_number]
+      debugger
       if @stock.update(number: new_stock)
         update_flash
         redirect_to items_path
       else
-        render 'edit'
+        # render先にパラメータとしてprocess_name: params[:commit]を送信
+        # stocks/editで入庫と出庫の切り替わりができるようにパラメータを渡す
+        render 'edit', process_name: params[:commit]
         # エラーメッセージ、flash必要？
       end
     end
@@ -19,7 +23,7 @@ class StocksController < ApplicationController
 
   private
     def stock_params
-      params.require(:stock).permit(:process_number, :id)
+      params.require(:stock).permit(:process_number)
     end
 
     # 入出庫の計算　出庫ならstockからprocess_numberをひいた値を返す、入庫なら足した値を返す
@@ -40,6 +44,9 @@ class StocksController < ApplicationController
         flash[:success] =  process_word + "入庫しました"
       end
     end
+
+
+    
 
     
 end

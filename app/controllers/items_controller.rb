@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
 
   private
     def item_params
-      params.require(:item).permit(:id, :name, :stock, :unit, :process_number)
+      params.require(:item).permit(:name, :unit)
     end
 
     # パラメータによって、入庫、出庫などの処理によってrender先が変わる
