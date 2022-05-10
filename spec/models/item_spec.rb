@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Item, type: :model do
     before do 
-        @item = FactoryBot.build(:sample1)
+        @item = FactoryBot.build(:item1)
     end
 
     context 'バリデーション' do

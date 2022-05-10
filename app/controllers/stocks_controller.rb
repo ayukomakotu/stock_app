@@ -18,6 +18,7 @@ class StocksController < ApplicationController
         # エラーメッセージ、flash必要？
       end
     else
+      flash[:danger] = "正しい数値を入力してください（0と空白は入力できません）"
       render 'edit'
     end
   end
