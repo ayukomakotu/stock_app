@@ -1,12 +1,15 @@
-<%= provide(:process_name, params[:process_name]) %>
+<!-- params[:propcess_name]が存在すれば、provideメソッドにparams[:process_name]を渡す --!>
+<!-- params[:propcess_name]が存在しなければ, provideメソッドにparams[:commit]を渡す --!>
+<!-- renderされるときは パラメータを渡せないので、既に存在するパラメータを利用する(params[:commit]) --!>
+<% params[:process_name] ? provide(:process_name, params[:process_name]) : provide(:process_name, params[:commit]) %>
 
+<h1><%= "#{yield(:propcess_name)}処理　　#{@stock.item.name}" %></h1>
 
-<h1><%= "#{params[:process_name]}処理　　#{@stock.item.name}" %></h1>
 <%= form_with(model: @stock, url: stock_path, method: :patch, local: true) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 
     <!-- 出庫数 -->
-    <%= "#{params[:process_name]}数" %>
+    <%= "#{yield(:process_name)}数" %>
     <%= f.number_field :process_number, min: 1 %>
 
     <%= f.submit yield(:process_name), class: "btn btn-primary" %>

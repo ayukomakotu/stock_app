@@ -1,0 +1,13 @@
+
+
+<h1><%= "#{process_name}処理　　#{@stock.item.name}" %></h1>
+<%= form_with(model: @stock, url: stock_path, method: :patch, local: true) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <!-- 出庫数 -->
+    <%= "#{process_name}数" %>
+    <%= f.number_field :process_number, min: 1 %>
+
+    <%= f.submit "#{process_name}", class: "btn btn-primary" %>
+
+<% end %>

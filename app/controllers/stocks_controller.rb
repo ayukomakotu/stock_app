@@ -7,17 +7,18 @@ class StocksController < ApplicationController
     @stock = Stock.find(params[:id])
     @item = Item.find(@stock.item_id)
     # presentはnil, "", " ", [], {}でなければtrueを返す
-    if params[:stock][:process_number]
-      debugger
+    if params[:stock][:process_number].present?
       if @stock.update(number: new_stock)
         update_flash
         redirect_to items_path
       else
         # render先にパラメータとしてprocess_name: params[:commit]を送信
         # stocks/editで入庫と出庫の切り替わりができるようにパラメータを渡す
-        render 'edit', process_name: params[:commit]
+        render 'edit'
         # エラーメッセージ、flash必要？
       end
+    else
+      render 'edit'
     end
   end
 
