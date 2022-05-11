@@ -8,8 +8,7 @@ class CreateReports < ActiveRecord::Migration[6.1]
       t.date :day
       t.string :purpose
       t.integer :confirmer
-      t.string :confirmation
-      t.string :boolean
+      t.boolean :confirmation, default: false, null: false
 
       t.timestamps
     end
