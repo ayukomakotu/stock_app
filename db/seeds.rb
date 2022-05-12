@@ -18,12 +18,12 @@ end
 user = User.create!(name: "山根", number: 0202)
 
 (1..3).each do |n|
-    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "出庫", day: Date.today,
-                purpose: "コダマ邸使用のため", confirmer: nil, confirmation: false)
-    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "出庫", day: Date.today,
-                purpose: nil, confirmer: user.id, confirmation: true)
-    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "入庫", day: Date.today,
-                purpose: "コダマ邸使用のため", confirmer: nil, confirmation: false)
-    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "入庫", day: Date.today,
-                purpose: nil, confirmer: user.id, confirmation: true)
+    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "出庫", process_number: 3,
+    day: Date.today, purpose: "コダマ邸使用のため", confirmer: nil, confirmation: false)
+    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "出庫", process_number: 3,
+    day: Date.today, purpose: nil, confirmer: user.id, confirmation: true)
+    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "入庫", process_number: 3,
+    day: Date.today, purpose: "コダマ邸使用のため", confirmer: nil, confirmation: false)
+    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "入庫", process_number: 3,
+    day: Date.today, purpose: nil, confirmer: user.id, confirmation: true)
 end
