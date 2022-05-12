@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2022_05_11_133024) do
     t.integer "process_number"
     t.date "day"
     t.string "purpose"
-    t.integer "confirmer"
+    t.integer "confirmer_id"
     t.boolean "confirmation", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

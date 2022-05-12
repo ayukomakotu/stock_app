@@ -7,7 +7,7 @@ class CreateReports < ActiveRecord::Migration[6.1]
       t.integer :process_number
       t.date :day
       t.string :purpose
-      t.integer :confirmer
+      t.integer :confirmer_id
       t.boolean :confirmation, default: false, null: false
 
       t.timestamps
