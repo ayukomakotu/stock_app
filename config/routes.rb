@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reports, only: :index
   resources :items, only: [:index, :edit, :update]
   resources :stocks, only: [:edit, :update]
   # 出庫
