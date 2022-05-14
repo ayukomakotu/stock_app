@@ -5,7 +5,8 @@
     <td><%= report.item.unit %></td>
     <td><%= report.user.name %></td>
     <td><%= report.purpose %></td>
-    <td><%= report.confirmation %></td>
+    <td>
+        <%= report.confirmation == false ? "未" : "済" %>
     <td>
         <%= report.confirmer.name if report.confirmer %>
     </td>

@@ -27,3 +27,7 @@ user = User.create(name: "こだま太郎", number: 0202)
                 purpose: "", confirmer_id: user.id, confirmation: true)
 end
 
+20.times do 
+    Report.create(user_id: 1, item_id: 1, process: "出庫", process_number: 3, day: Date.today, 
+                purpose: "こだま邸使用のため", confirmer_id: nil, confirmation: false)
+end
