@@ -19,5 +19,11 @@ RSpec.describe User, type: :model do
             @user.name = nil
             expect(@user).to be_invalid
         end
+
+        it "nameの一意性は担保されているか" do
+            @user.save
+            dup_user = @user.dup
+            expect(dup_user).to be_invalid
+        end
     end
 end
