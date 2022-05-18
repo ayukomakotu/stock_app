@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
   resources :reports, only: :index
   resources :items, only: [:index, :edit, :update]
   resources :stocks, only: [:edit, :update]
