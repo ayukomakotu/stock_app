@@ -1,16 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe "InOutStockItems", type: :system do
+    let!(:user1)  { FactoryBot.create(:user1) }
     let!(:item1)  { FactoryBot.create(:item1) }
     let!(:stock1)   { FactoryBot.create(:stock1, item: item1)}
     
     describe '出庫' do
         before do
+            # visit login_path
+            # fill_in 'session[number]', with: user1.number
+            # fill_in 'session[password]', with: user1.password
+            # click_button 'ログイン'
+            log_in_system(user1)
+
             visit items_path
             # 出庫へのリンクをクリック
             click_link '出庫'
-            # item/:id/out_stockに遷移したかテスト
+        end
+
+        it "出庫ページに遷移しているか" do
             expect(current_path).to eq edit_stock_path(stock1)
+            expect(page).to have_content "出庫"
         end
 
         it "formの入力値が正常な場合、出庫が成功するか" do
@@ -42,11 +52,15 @@ RSpec.describe "InOutStockItems", type: :system do
 
     describe '入庫' do
         before do
+            log_in_system(user1)
             visit items_path
             # 出庫へのリンクをクリック
             click_link '入庫'
-            # item/:id/out_stockに遷移したかテスト
+        end
+
+        it "入庫ページに遷移しているか" do
             expect(current_path).to eq edit_stock_path(stock1)
+            expect(page).to have_content "入庫"
         end
 
         it "formの入力値が正常な場合、入庫が成功するか" do

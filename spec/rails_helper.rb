@@ -61,4 +61,17 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  # テストユーザーとしてログインする
+  def log_in_as(user)
+    post login_path, params: { session: { number: user.number,
+                                          password: user.password } }
+  end
+
+  #テストユーザーとしてログイン（system spec）
+  def log_in_system(user)
+    visit login_path
+    fill_in 'session[number]', with: user.number
+    fill_in 'session[password]', with: user.password
+    click_button 'ログイン'
+  end
 end

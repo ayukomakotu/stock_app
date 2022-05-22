@@ -1,12 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe "ItemsControllers", type: :request do
+
+  let!(:user1)  { FactoryBot.create(:user1)}
   
   let!(:item1)  { FactoryBot.create(:item1) }
   let!(:item2)  { FactoryBot.create(:item2) }
   # itemに関連づけたstockをFactoryBotで作成
   let!(:stock1)   { FactoryBot.create(:stock1, item: item1) }
   let!(:stock2)   { FactoryBot.create(:stock2, item: item2) }
+
+  before do
+    log_in_as(user1)
+  end
 
   describe "GET /index" do
     it "リクエストが成功するか" do
