@@ -6,6 +6,9 @@ RSpec.describe "IndexItems", type: :system do
     let!(:stock1)   { FactoryBot.create(:stock1, item: item1)}
     
     it "在庫表の表示のテスト" do
+        visit items_path
+        # 日ログイン状態でログイン画面に戻される
+        expect(current_path).to eq login_path
         log_in_system(user1)
         visit items_path
         # ページ上に特定の文字列が表示されているか
