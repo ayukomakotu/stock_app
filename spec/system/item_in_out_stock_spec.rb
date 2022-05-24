@@ -5,9 +5,11 @@ RSpec.describe "InOutStockItems", type: :system do
     let!(:item1)  { FactoryBot.create(:item1) }
     let!(:stock1)   { FactoryBot.create(:stock1, item: item1)}
 
-    it "日ログイン状態でログイン画面に戻される" do
+    it "日ログイン状態でログイン画面に戻される、ログインすると、在庫管理画面に戻る" do
         visit edit_stock_path(stock1)
         expect(current_path).to eq login_path
+        log_in_system(user1)
+        expect(current_path).to eq edit_stock_path(user1)
     end
     
     describe '出庫' do
