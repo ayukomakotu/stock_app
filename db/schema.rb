@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_11_133024) do
+ActiveRecord::Schema.define(version: 2022_05_19_131858) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "unit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_items_on_name", unique: true
   end
 
   create_table "reports", force: :cascade do |t|
@@ -47,6 +48,8 @@ ActiveRecord::Schema.define(version: 2022_05_11_133024) do
     t.integer "number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+    t.index ["number"], name: "index_users_on_number", unique: true
   end
 
   add_foreign_key "reports", "items"

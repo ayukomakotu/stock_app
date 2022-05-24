@@ -11,10 +11,12 @@ items.each do |name, stock, unit|
 end
 
 (1..10).each do |n|
-    User.create(name: Faker::Name.name, number: n)
+    User.create(name: Faker::Name.name, number: n,
+        password: "password", password_confirmation: "password")
 end
 
-user = User.create(name: "こだま太郎", number: 0202)
+user = User.create(name: "こだま太郎", number: 202, 
+        password: "password", password_confirmation: "password")
 
 (1..3).each do |n|
     Report.create(user_id: n, item_id: n, process: "出庫", process_number: 3, day: Date.today, 
