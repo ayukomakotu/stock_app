@@ -5,10 +5,17 @@ class ReportsController < ApplicationController
 
   def update
     @report = Report.find(params[:id])
-    if @report.update(report_params)
+    # 入力確認　入力済み　未入力の切り替え
+    if params[:report][:confirmation] == "toggle"
+      @report.toggle!(:confirmation)
       redirect_to reports_path
     else
-      render 'index' 
+      # 通常のアップデート
+      if @report.update(report_params)
+        redirect_to reports_path
+      else
+        render 'index' 
+      end
     end
   end
 
