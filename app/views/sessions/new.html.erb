@@ -1,0 +1,33 @@
+<div class="text-center">
+    
+<main class="form-signin">
+  
+  <h2>ログインしてください</h2>
+
+
+
+  <%= form_with url: login_path, scope: :session, local: true do |f| %>
+    
+    <div class="form-floating">
+        <%= f.number_field :number, autofocus: true, 
+                                  autocomplete: "number", 
+                                  class: "form-control", 
+                                  id: "floatingInput" %>
+        <label for="floatingInput">番号</label>
+    </div>
+
+    <div class="form-floating">
+        <%= f.password_field :password, autocomplete: "current-password",
+                                        class: "form-control",
+                                        id: "floatingPassword",
+                                        placeholder: "Password" %>
+        <label for="floatingPassword">パスワード</label>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "ログイン", class: "w-100 btn btn-lg btn-primary" %>
+    </div>
+  <% end %>
+
+</main>
+</div>

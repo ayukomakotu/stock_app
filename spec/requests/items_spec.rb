@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "ItemsControllers", type: :request do
+
+  let!(:user1)  { FactoryBot.create(:user1)}
   
   let!(:item1)  { FactoryBot.create(:item1) }
   let!(:item2)  { FactoryBot.create(:item2) }
@@ -10,46 +12,14 @@ RSpec.describe "ItemsControllers", type: :request do
 
   describe "GET /index" do
     it "リクエストが成功するか" do
+      log_in_as(user1)
       get items_path
       expect(response.status).to eq 200
     end
   end
-
-  describe "PATCH #update" do
-    context 'パラメータが妥当な場合' do
-      pending "リクエストが成功するか" do
-        patch item_path(item1), params: { item: FactoryBot.attributes_for(:item2) }
-        expect(response.status).to eq 302
-      end
-
-      pending "更新でitem名が更新されるか" do
-        expect do
-          patch item_path(item1), params: { item: FactoryBot.attributes_for(:item2) }
-        end.to change { Item.find(item1.id).name }.from('item1').to('item2')
-      end
-    end
-
-    context 'パラメータが不正な場合' do
-
-      it 'リクエストが成功するか' do
-        patch item_path(item1), params: { item: { name: "   ", unit: "個"}}
-        expect(response.status).to eq 200
-      end
-
-      it "nameが変更されないか" do
-        expect do
-          patch item_path(item1), params: { item: { name: "   ", unit: "個"}}
-        end.to_not change(Item.find(item1.id), :name)
-      end
-
-      pending "エラーが表示されるか" do
-        patch item_path(item1), params: { item: {id: item1.id, name: nil, 
-                        stock: item1.stock, unit: item1.unit }}
-        expect(response.body).to include 'prohibited this user from being saved'
-      end   
-    end
-  end
 end
+
+  
 
     # context '入出庫' do
     #   context 'パラメータが有効な場合' do

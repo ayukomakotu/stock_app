@@ -4,7 +4,7 @@ FactoryBot.define do
     process_number { 3 }
     day { "2022-05-11" }
     purpose { "こだま邸白蟻駆除" }
-    confirmer { nil }
+    confirmer_id { nil }
     confirmation { false }
   end
   factory :report2, class: Report do
@@ -12,7 +12,7 @@ FactoryBot.define do
     process_number { 3 }
     day { "2022-05-11" }
     purpose { nil }
-    confirmer { nil }
+    confirmer_id { nil }
     confirmation { false }
   end
 end

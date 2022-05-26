@@ -1,5 +1,16 @@
+<table class="table">
+    <tr>
+        <th>処理日</th>
+        <th>処理名</th>
+        <th>品名</th>
+        <th>数量</th>
+        <th>単位</th>
+        <th>担当者</th>
+        <th>使用目的</th>
+        <th>入力確認</th>
+        <th>確認者</th>
+    </tr>
 <%= render @reports %>
 
-<% @reports.each do |report| %>
-    <%= render report %>
-<% end %>
+</table>
+<%= will_paginate %>

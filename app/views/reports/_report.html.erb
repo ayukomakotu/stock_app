@@ -1,13 +1,18 @@
-<li>
-    <%= report.day %>
-    <%= report.user %>
-    <%= report.item %>
-    <%= report.process %>
-    <%= report.process_number %>
-    <%= report.purpose %>
-    <%= report.confirmar %>
-    <%= report.confirmation %>
-
-      <!--| <%= link_to "delete", user, method: :delete,data: { confirm: "You sure?" } %> -->
-</li>
-
+<tr>
+    <td><%= report.day %></td>
+    <td><%= report.process %></td>
+    <td><%= report.item.name %></td>
+    <td><%= report.process_number %></td>
+    <td><%= report.item.unit %></td>
+    <td><%= report.user.name %></td>
+    <td><%= report.purpose %></td>
+    <td>
+        <!-- confirmationがfalseなら未入力を,trueなら入力済を表示 --!>
+        <%= report.confirmation == false ? "未入力" : "入力済" %>
+        <%= link_to "入力を確認する", report_path(report, report: { confirmation: "toggle"}), 
+                                    method: :patch, 
+                                    data: { confirm: "顧客管理ソフトに入力しましたか？" }%>
+    <td>
+        <%= report.confirmer.name if report.confirmer %>
+    </td>
+</tr>

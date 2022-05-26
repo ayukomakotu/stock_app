@@ -1,4 +1,6 @@
 class StocksController < ApplicationController
+  before_action :logged_in_user
+  
   def edit
     @stock = Stock.find(params[:id])
   end
