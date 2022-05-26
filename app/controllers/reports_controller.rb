@@ -1,21 +1,16 @@
 class ReportsController < ApplicationController
+  before_action :logged_in_user
+
   def index
     @reports = Report.all.paginate(page: params[:page])
   end
 
   def update
     @report = Report.find(params[:id])
-    # 入力確認　入力済み　未入力の切り替え
-    if params[:report][:confirmation] == "toggle"
-      @report.toggle!(:confirmation)
+    if @report.update(report_params)
       redirect_to reports_path
     else
-      # 通常のアップデート
-      if @report.update(report_params)
-        redirect_to reports_path
-      else
-        render 'index' 
-      end
+      render 'index' 
     end
   end
 

@@ -8,10 +8,21 @@
     <td><%= report.purpose %></td>
     <td>
         <!-- confirmationがfalseなら未入力を,trueなら入力済を表示 --!>
-        <%= report.confirmation == false ? "未入力" : "入力済" %>
-        <%= link_to "入力を確認する", report_path(report, report: { confirmation: "toggle"}), 
-                                    method: :patch, 
-                                    data: { confirm: "顧客管理ソフトに入力しましたか？" }%>
+        <% if report.confirmation == false %>
+            未入力
+            <%= form_with(model: report, local: false) do |f| %>
+                <div><%= f.hidden_field :confirmer_id, :value => current_user.id %></div>
+                <div><%= f.hidden_field :confirmation, :value => true %></div>
+                <%= f.submit "入力を確認", class: "btn btn-primary", data: { confirm: "顧客管理ソフトへの入力確認を入力済にしますか？" } %>
+            <% end %>
+        <% else %>
+            入力済
+            <%= form_with(model: report, local: false) do |f| %>
+                <div><%= f.hidden_field :confirmer_id, :value => nil %></div>
+                <div><%= f.hidden_field :confirmation, :value => false %></div>
+                <%= f.submit "入力を確認", class: "btn btn-primary", data: { confirm: "顧客管理ソフトへの入力確認を未入力に戻しますか？" } %>
+            <% end %>
+        <% end %>
     <td>
         <%= report.confirmer.name if report.confirmer %>
     </td>

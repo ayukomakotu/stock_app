@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-  resources :reports, only: :index
-=======
   resources :reports, only: [:index, :update]
->>>>>>> 40abd013da30832fa830c80edc563504dfc3fb9d
   resources :items, only: [:index, :edit, :update]
   resources :stocks, only: [:edit, :update]
   # 出庫
