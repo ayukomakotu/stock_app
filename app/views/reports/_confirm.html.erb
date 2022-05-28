@@ -1,0 +1,6 @@
+<%= form_with(model: report, local: false) do |f| %>
+    <div><%= f.hidden_field :confirmer_id, :value => current_user.id %></div>
+    <div><%= f.hidden_field :confirmation, :value => true %></div>
+    <%= f.submit "未入力", class: "btn btn-danger",
+                    data: { confirm: "顧客管理ソフトに入力しましたか？" } %>
+<% end %>

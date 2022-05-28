@@ -8,10 +8,13 @@
     <td><%= report.purpose %></td>
     <td>
         <!-- confirmationがfalseなら未入力を,trueなら入力済を表示 --!>
-        <%= report.confirmation == false ? "未入力" : "入力済" %>
-        <%= link_to "入力を確認する", report_path(report, report: { confirmation: "toggle"}), 
-                                    method: :patch, 
-                                    data: { confirm: "顧客管理ソフトに入力しましたか？" }%>
+        <div id="confirm_form">
+            <% if report.confirmation == false %>
+                <%= render partial: 'confirm', locals: { report: report } %>
+            <% else %>
+                <%= render partial: 'unconfirm', locals: { report: report } %>
+            <% end %>
+        </div>
     <td>
         <%= report.confirmer.name if report.confirmer %>
     </td>
