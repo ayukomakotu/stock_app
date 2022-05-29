@@ -12,7 +12,7 @@ FactoryBot.define do
     process_number { 3 }
     day { "2022-05-11" }
     purpose { nil }
-    confirmer_id { nil }
-    confirmation { false }
+    confirmer_id { 1 }
+    confirmation { true }
   end
 end
