@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'sessions#new'
   resources :reports, only: [:index, :update]
   resources :items, only: [:index, :edit, :update]
   resources :stocks, only: [:edit, :update]

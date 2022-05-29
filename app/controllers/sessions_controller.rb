@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+    redirect_to items_path unless !(logged_in?)
   end
 
   def create
