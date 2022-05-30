@@ -15,4 +15,12 @@ FactoryBot.define do
     confirmer_id { 1 }
     confirmation { true }
   end
+  factory :sample, class: Report do
+    process { "出庫" }
+    process_number { 3 }
+    day { "2022-05-13" }
+    purpose { "sample使用" }
+    confirmer_id { 1 } 
+    confirmation { true } 
+  end
 end

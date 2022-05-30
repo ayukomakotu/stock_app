@@ -32,6 +32,12 @@ RSpec.describe "IndexItems", type: :system do
     end
     
     it "ページネーションが正しく機能しているか" do
+        # テストデータをまとめて作る
+        reports = FactoryBot.create_list(:sample, 30, user: user1, item: item1)
+        log_in_system(user1)
+        visit reports_path
+        click_on "2"
+        expect(page).to have_content "sample使用"
     end
 end
 
