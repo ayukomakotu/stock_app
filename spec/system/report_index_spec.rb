@@ -31,7 +31,7 @@ RSpec.describe "IndexItems", type: :system do
         expect(page).not_to have_content "顧客管理ソフトへ未入力の処理が残っています"
     end
     
-    it "ページネーションが正しく機能しているか" do
+    it "ページネーションが正しく機能しているか, reportが日付順になっているか" do
         # テストデータをまとめて作る
         reports = FactoryBot.create_list(:sample, 30, user: user1, item: item1)
         log_in_system(user1)
