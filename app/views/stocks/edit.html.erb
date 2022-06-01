@@ -5,13 +5,30 @@
 
 <h1><%= "#{yield(:propcess_name)}処理　　#{@stock.item.name}" %></h1>
 
-<%= form_with(model: @stock, url: stock_path, method: :patch, local: true) do |f| %>
+<%= form_with(model: @stock_form, url: stock_path, method: :patch, local: true) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 
     <!-- 出庫数 -->
     <%= "#{yield(:process_name)}数" %>
     <%= f.number_field :process_number, min: 1 %>
 
+    <!-- 日付 --!>
+    <%= "#{yield(:process_name)}日" %>
+    <%= f.date_field :day %>
+
+    <!-- 使用目的　--!>
+    <%= "使用目的" %>
+    <%= f.text_field :purpose %>
+
+    <!-- 処理担当 --!>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
+
+    <!-- 処理名 --!>
+    <%= f.hidden_field :process, :value => "#{yield(:process_name)}" %>
+
+    <!-- 在庫品名 --!>
+    <%= f.hidden_field :item_id, :value => @item.id %>
+    
     <%= f.submit yield(:process_name), class: "btn btn-primary" %>
 
 <% end %>
