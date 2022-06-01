@@ -1,39 +1,21 @@
 <div class="header">
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
-      <%= link_to "KODAMA", '#', class: "navbar-brand", id: "logo" %>
+      <%= link_to "KODAMA", root_path, class: "navbar-brand", id: "logo" %>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarsExample03">
         <ul class="navbar-nav me-auto mb-2 mb-sm-0">
-          <li class="nav-item">
-            <%= link_to "ホーム", "#", class: "nav-link active" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "ヘルプ", "#", class: "nav-link active" %>
-          </li>
           <% if logged_in? %>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle active" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">アカウント</a>
-                <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                    <li>
-                        <%= link_to "マイページ", "#", 
-                                    class: "dropdown-item" %>
-                    </li>
-                    <li>
-                        <%= link_to "設定", "#",
-                                    class: "dropdown-item" %>
-                    </li>
-                    <li class="divider"></li>
-                    <li> 
-                        <%= button_to "ログアウト", logout_path, class: "dropdown-item", method: :delete %> 
-                    </li>
-                </ul>
+            <li class="nav-item">
+                <%= link_to "在庫表", items_path, class: "nav-link active" %>
             </li>
-          <% else %>
-            <li>
-              <%= link_to "ログイン", login_path, class: "nav-link active" %>
+            <li class="nav-item">
+                <%= link_to "処理履歴", reports_path, class: "nav-link active" %>
+            </li>
+            <li class="nav-item">
+                <%= link_to "ログアウト", logout_path, class: "nav-link active", method: :delete %> 
             </li>
           <% end %>
         </ul>

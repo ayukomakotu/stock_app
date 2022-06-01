@@ -1,17 +1,17 @@
 class ReportsController < ApplicationController
   before_action :logged_in_user
-
   def index
-    @reports = Report.all.paginate(page: params[:page])
+    @reports = Report.all.order(day: "DESC").paginate(page: params[:page])
+    uncomfirmed = @reports.map(&:confirmation).find { |com|com == false }
+    flash.now[:danger] = "顧客管理ソフトへ未入力の処理が残っています" if uncomfirmed == false
   end
 
   def update
     @report = Report.find(params[:id])
     if @report.update(report_params)
-      update_flash
       redirect_to reports_path
     else
-      render 'index' 
+      render 'index'
     end
   end
 

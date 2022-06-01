@@ -8,11 +8,13 @@
     <td><%= report.purpose %></td>
     <td>
         <!-- confirmationがfalseなら未入力を,trueなら入力済を表示 --!>
-        <% if report.confirmation == false %>
-            <%= render partial: 'confirm', locals: { report: report } %>
-        <% else %>
-            <%= render partial: 'unconfirm', locals: { report: report } %>
-        <% end %>
+        <div id="confirm_form">
+            <% if report.confirmation == false %>
+                <%= render partial: 'confirm', locals: { report: report } %>
+            <% else %>
+                <%= render partial: 'unconfirm', locals: { report: report } %>
+            <% end %>
+        </div>
     <td>
         <%= report.confirmer.name if report.confirmer %>
     </td>
