@@ -26,8 +26,8 @@
                 <%= item.unit %>
             </td>
             <td>
-                <%= link_to "出庫", edit_stock_path(item.stock, process_name: "出庫") %>
-                <%= link_to "入庫", edit_stock_path(item.stock, process_name: "入庫") %>
+                <%= link_to "出庫", edit_stock_path(item.stock, process_name: "出庫"), class: "btn btn-warning" %>
+                <%= link_to "入庫", edit_stock_path(item.stock, process_name: "入庫"), class: "btn btn-info" %>
             </td>
         </tr>
     <% end %>
