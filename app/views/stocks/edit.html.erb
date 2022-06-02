@@ -14,7 +14,7 @@
 
     <!-- 日付 --!>
     <%= "#{yield(:process_name)}日" %>
-    <%= f.date_field :day %>
+    <%= f.date_field :day, value: Date.today %>
 
     <!-- 使用目的　--!>
     <%= "使用目的" %>

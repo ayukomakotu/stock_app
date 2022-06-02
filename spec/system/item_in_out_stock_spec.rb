@@ -33,7 +33,7 @@ RSpec.describe "InOutStockItems", type: :system do
         it "formの入力値が正常な場合、出庫が成功するか" do
             expect do
                 # formに出庫数を入力
-                fill_in 'stock[process_number]', with: 3
+                fill_in 'stock_form[process_number]', with: 3
                 # 出庫ボタンをクリック
                 click_button'出庫'
                 # 正しいフラッシュメッセージが表示されているかチェック
@@ -45,7 +45,7 @@ RSpec.describe "InOutStockItems", type: :system do
         it "formの出庫数が未入力の場合, 出庫が失敗するか、正しくrenderされるか" do
             expect do
                 # formにnilを入力
-                fill_in 'stock[process_number]', with: "  "
+                fill_in 'stock_form[process_number]', with: "  "
                 # 出庫ボタンをクリック
                 click_button'出庫'
                 # エラーメッセージが表示されているかチェック
@@ -73,7 +73,7 @@ RSpec.describe "InOutStockItems", type: :system do
         it "formの入力値が正常な場合、入庫が成功するか" do
             expect do
                 # formに出庫数を入力
-                fill_in 'stock[process_number]', with: 3
+                fill_in 'stock_form[process_number]', with: 3
                 # 出庫ボタンをクリック
                 click_button '入庫'
                 # 正しいフラッシュメッセージが表示されているかチェック
@@ -85,7 +85,7 @@ RSpec.describe "InOutStockItems", type: :system do
         it "formの入庫数が未入力の場合, 出庫が失敗するか、正しくrenderされるか" do
             expect do
                 # formにnilを入力
-                fill_in 'stock[process_number]', with: "  "
+                fill_in 'stock_form[process_number]', with: "  "
                 # 出庫ボタンをクリック
                 click_button'入庫'
                 # エラーメッセージが表示されているかチェック

@@ -22,7 +22,7 @@ RSpec.describe "Stocks", type: :request do
 
   describe "PATCH /update" do
     it "リクエストが成功するか" do
-      patch stock_path(stock1), params: { stock: { process_number: 5 }} 
+      patch stock_path(stock1), params: { stock_form: { process_number: 5 }} 
       expect(response.status).to eq 302
     end
   end
