@@ -42,6 +42,16 @@ RSpec.describe "InOutStockItems", type: :system do
             end.to change { Stock.find(stock1.id).number }.from(30).to(27)
         end
 
+        it "formの入力値が正常な場合、履歴が正しく作られるか" do
+            expect do
+                # formに出庫数を入力
+                fill_in 'stock_form[process_number]', with: 3
+                # 出庫ボタンをクリック
+                click_button'出庫'
+            end.to change { Report.all.count }.by(1)
+        end
+
+
         it "formの出庫数が未入力の場合, 出庫が失敗するか、正しくrenderされるか" do
             expect do
                 # formにnilを入力
@@ -54,6 +64,15 @@ RSpec.describe "InOutStockItems", type: :system do
                 expect(page).to have_content "出庫"
                 #出庫数が変化していないか
             end.to_not change { Stock.find(stock1.id).number }
+        end
+
+        it "formの入力値が不正な場合、履歴は作られないか" do
+            expect do
+                # formにnilを入力
+                fill_in 'stock_form[process_number]', with: "  "
+                # 出庫ボタンをクリック
+                click_button'出庫'
+            end.to_not change { Report.all.count }
         end
     end
 
@@ -82,6 +101,15 @@ RSpec.describe "InOutStockItems", type: :system do
             end.to change { Stock.find(stock1.id).number }.from(30).to(33)
         end
 
+        it "formの入力値が正常な場合、履歴が正しく作られるか" do
+            expect do
+                # formに出庫数を入力
+                fill_in 'stock_form[process_number]', with: 3
+                # 出庫ボタンをクリック
+                click_button'入庫'
+            end.to change { Report.all.count }.by(1)
+        end
+
         it "formの入庫数が未入力の場合, 出庫が失敗するか、正しくrenderされるか" do
             expect do
                 # formにnilを入力
@@ -94,6 +122,15 @@ RSpec.describe "InOutStockItems", type: :system do
                 expect(page).to have_content "入庫"
                 #出庫数が変化していないか
             end.to_not change { Stock.find(stock1.id).number }
+        end
+
+        it "formの入力値が不正な場合、履歴は作られないか" do
+            expect do
+                # formにnilを入力
+                fill_in 'stock_form[process_number]', with: "  "
+                # 出庫ボタンをクリック
+                click_button'入庫'
+            end.to_not change { Report.all.count }
         end
     end
 
