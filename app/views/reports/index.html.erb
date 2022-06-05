@@ -6,7 +6,7 @@
     <% end %>
 </div>
 <div>
-    絞込み条件 | <%= @month %>
+    絞込み条件 | <%= l(Date.parse("#{@month}" + "-1"), format: :short) %>
 </div>
 <table class="table">
     <tr>
