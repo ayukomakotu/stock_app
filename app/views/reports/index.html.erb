@@ -1,3 +1,13 @@
+<div>
+    月で絞込み
+    <%= form_with url: reports_path, local: true, method: :get do |f| %>
+        <%= f.month_field :month %>
+        <%= f.submit "絞込み", class: "btn btn-primary" %>
+    <% end %>
+</div>
+<div>
+    絞込み条件 | <%= @month %>
+</div>
 <table class="table">
     <tr>
         <th>処理日</th>

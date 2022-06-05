@@ -1,9 +1,18 @@
 class ReportsController < ApplicationController
   before_action :logged_in_user
   def index
-    @reports = Report.all.order(day: "DESC").paginate(page: params[:page])
+    @month = params[:month] if params[:month]
+    # 降順に表示
+    if @month
+      @reports = Report.month_between(@month).order(day: "DESC").paginate(page: params[:page])
+    else
+      @reports = Report.all.order(day: "DESC").paginate(page: params[:page])
+    end
+
+    # 未入力のものがある場合flashが表示される
     uncomfirmed = @reports.map(&:confirmation).find { |com|com == false }
     flash.now[:danger] = "顧客管理ソフトへ未入力の処理が残っています" if uncomfirmed == false
+    
   end
 
   def update

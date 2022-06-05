@@ -8,4 +8,18 @@ class Report < ApplicationRecord
   validates :process, presence: true
   validates :process_number, presence: true
   validates :day, presence: true
+
+  scope :day_between, -> from, to {
+    if from.present? && to.present?
+      where(day: from..to)
+    elsif from.presnet?
+      where('day >= ?', from)
+    elsif to.present?
+      where('day <= ?', to)
+    end
+  }
+
+  scope :month_between, -> month {
+    where(day: Date.parse("#{month}-1").all_month)
+  }
 end
