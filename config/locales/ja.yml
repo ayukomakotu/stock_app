@@ -6,3 +6,5 @@ ja:
     formats:
     # Date classを日本語で表示するためのフォーマット 2022年/2月
       short: "%Y年%m月"
+      long: ! '%Y年%-m月%-d日'
+      

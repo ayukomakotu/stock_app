@@ -14,7 +14,7 @@ RSpec.describe "IndexItems", type: :system do
         log_in_system(user1)
         visit reports_path
         # ページ上に特定の文字列が表示されているか
-        expect(page).to have_content report1.day
+        expect(page).to have_content "#{report1.day.year}年#{report1.day.month}月#{report1.day.day}日"
         expect(page).to have_content report1.process
         expect(page).to have_content report1.process_number
         expect(page).to have_content report1.item.unit
@@ -38,6 +38,14 @@ RSpec.describe "IndexItems", type: :system do
         visit reports_path
         click_on "2"
         expect(page).to have_content "sample使用"
+    end
+
+    it "正しく絞込みできるか" do
+        log_in_system(user1)
+        visit reports_path
+        fill_in "month", with: "2022年5月"
+        click_on "絞込み"
+        expect(page).not_to have_content "2022年6月"
     end
 end
 
