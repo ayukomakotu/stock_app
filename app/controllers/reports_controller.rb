@@ -1,10 +1,19 @@
 class ReportsController < ApplicationController
   before_action :logged_in_user
   def index
-    @month = params[:month] if params[:month]
-    # 降順に表示
-    if @month
+    if params[:key]
+      @month = params[:key][:month] 
+      @item = params[:key][:item_id]
+      # debugger 
+    end
+    # 降順に表示 (order( "DESC"))
+    # 絞込み　
+    if @month.present? && @item.present?
+      @reports = Report.month_between(@month).where(item_id: @item).order(day: "DESC").paginate(page: params[:page])
+    elsif @month.present?
       @reports = Report.month_between(@month).order(day: "DESC").paginate(page: params[:page])
+    elsif @item.present?
+      @reports = Report.where(item_id: @item).order(day: "DESC").paginate(page: params[:page])
     else
       @reports = Report.all.order(day: "DESC").paginate(page: params[:page])
     end

@@ -1,12 +1,18 @@
 <div>
-    月で絞込み
-    <%= form_with url: reports_path, local: true, method: :get do |f| %>
+    絞込み
+    <%= form_with(url: reports_path, scope: :key, local: true, method: :get) do |f| %>
+
+        <%= f.label :月 %>
         <%= f.month_field :month %>
+
+        <%= f.label :品名 %>
+        <%= f.collection_select :item_id, Item.group(:name), :id, :name, include_blank: true %> 
+
         <%= f.submit "絞込み", class: "btn btn-primary" %>
     <% end %>
 </div>
 <div>
-    絞込み条件 | <%= l(Date.parse("#{@month}" + "-1"), format: :short) if @month %>
+    絞込み条件 | <%= l(Date.parse("#{@month}" + "-1"), format: :short) if @month.present? %>
 </div>
 <table class="table">
     <tr>
@@ -24,3 +30,4 @@
 
 </table>
 <%= will_paginate %>
+
