@@ -1,10 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe "IndexItems", type: :system do
+RSpec.describe "ReportItems", type: :system do
     let!(:user1)  { FactoryBot.create(:user1) }
     let!(:item1)  { FactoryBot.create(:item1) }
+    let!(:item2)  { FactoryBot.create(:item2) }
     let!(:stock1)   { FactoryBot.create(:stock1, item: item1)}
+    let!(:stock2)   { FactoryBot.create(:stock2, item: item2)}
     let!(:report1)   { FactoryBot.create(:report1, user: user1, item: item1)}
+    let!(:report2)   { FactoryBot.create(:report2, user: user1, item: item2)}
 
     
     it "処理履歴一覧の表示は正しいか" do
@@ -43,9 +46,15 @@ RSpec.describe "IndexItems", type: :system do
     it "正しく絞込みできるか" do
         log_in_system(user1)
         visit reports_path
-        fill_in "month", with: "2022年5月"
+        fill_in "key[month]", with: "002022-5"
         click_on "絞込み"
         expect(page).not_to have_content "2022年6月"
+        expect(page).to have_content "2022年5月"
+        fill_in "key_month", with: ""
+        find("#key_item_id").find("option[value='2']").select_option
+        click_on "絞込み"
+        expect(page).not_to have_selector "td", text: item1.name
+        expect(page).to have_selector "td", text: item2.name
     end
 end
 
