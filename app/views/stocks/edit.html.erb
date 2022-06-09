@@ -17,8 +17,10 @@
     <%= f.date_field :day, value: Date.today %>
 
     <!-- 使用目的　--!>
-    <%= "使用目的" %>
-    <%= f.text_field :purpose %>
+    <% if yield(:process_name) == "出庫" %>
+        <%= "使用目的" %>
+        <%= f.text_field :purpose %>
+    <% end %>
 
     <!-- 処理担当 --!>
     <%= f.hidden_field :user_id, :value => current_user.id %>
