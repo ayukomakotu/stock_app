@@ -7,17 +7,8 @@ class ReportsController < ApplicationController
       # debugger 
     end
     # 降順に表示 (order( "DESC"))
-    # 絞込み　
-    if @month.present? && @item.present?
-      @reports = Report.month_between(@month).where(item_id: @item).order(day: "DESC").paginate(page: params[:page])
-    elsif @month.present?
-      @reports = Report.month_between(@month).order(day: "DESC").paginate(page: params[:page])
-    elsif @item.present?
-      @reports = Report.where(item_id: @item).order(day: "DESC").paginate(page: params[:page])
-    else
-      @reports = Report.all.order(day: "DESC").paginate(page: params[:page])
-    end
-
+    # 絞込みがあれば絞り込んで表示 　
+    @reports = Report.all.search(@month, @item).order(day: "DESC").paginate(page: params[:page])
     # 未入力のものがある場合flashが表示される
     uncomfirmed = @reports.map(&:confirmation).find { |com|com == false }
     flash.now[:danger] = "顧客管理ソフトへ未入力の処理が残っています" if uncomfirmed == false
