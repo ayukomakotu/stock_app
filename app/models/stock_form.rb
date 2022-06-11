@@ -9,8 +9,16 @@ class StockForm
         validates :process
         validates :process_number
         validates :day
+        validates :purpose, if: :out_stock_purpose
     end
+
+    # 0以上でなければならない
+    validates :process_number, numericality: { greater_than: 0 }
     
+    def out_stock_purpose
+        process == "出庫"
+    end
+
     def save
         Report.create(user_id: user_id, item_id: item_id, process: process, 
                 process_number: process_number, day: day, purpose: purpose)

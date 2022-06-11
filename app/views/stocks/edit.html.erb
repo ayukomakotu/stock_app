@@ -8,7 +8,7 @@
 <%= form_with(model: @stock_form, url: stock_path, method: :patch, local: true) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
 
-    <!-- 出庫数 -->
+    <!-- 出入庫数 -->
     <%= "#{yield(:process_name)}数" %>
     <%= f.number_field :process_number, min: 1 %>
 
