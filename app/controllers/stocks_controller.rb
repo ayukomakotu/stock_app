@@ -5,6 +5,7 @@ class StocksController < ApplicationController
     @stock = Stock.find(params[:id])
     @item = @stock.item
     @stock_form = StockForm.new
+    # debugger
   end
 
   def update
@@ -12,8 +13,9 @@ class StocksController < ApplicationController
     @item = Item.find(@stock.item_id)
     @stock_form = StockForm.new(stock_form_params)
     # presentはnil, "", " ", [], {}でなければtrueを返す
-    if params[:stock_form][:process_number].present?
-      if @stock.update(number: new_stock)
+    # if params[:stock_form][:process_number].present?
+      if @stock_form.valid? 
+        @stock.update(number: new_stock)
         @stock_form.save
         update_flash
         redirect_to items_path
@@ -23,10 +25,10 @@ class StocksController < ApplicationController
         render 'edit'
         # エラーメッセージ、flash必要？
       end
-    else
-      flash[:danger] = "正しい数値を入力してください（0と空白は入力できません）"
-      render 'edit'
-    end
+    # else
+      # flash[:danger] = "正しい数値を入力してください（0と空白は入力できません）"
+      # render 'edit'
+    # end
   end
 
   private

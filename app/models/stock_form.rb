@@ -1,13 +1,14 @@
 class StockForm
-    include ActiveModel::Model
+    include ActiveModel::Model # 通常のモデルのようにvalidationなどを使えるようにする
+    include ActiveModel::Attributes # ActiveRecordのカラムのような属性を加えられるようにする
     # StockFormでメソッドとして使えるようにする
-    attr_accessor :day, :process, :process_number, :purpose, :number, :item_id, :user_id, :id
+    attr_accessor :process, :process_number, :day, :purpose, :number, :item_id, :user_id, :id
 
     # validationをひとまとめにする
     with_options presence: true do
-        validates :process, presence: true
-        validates :process_number, presence: true
-        validates :day, presence: true
+        validates :process
+        validates :process_number
+        validates :day
     end
     
     def save
