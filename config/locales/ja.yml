@@ -7,4 +7,9 @@ ja:
     # Date classを日本語で表示するためのフォーマット 2022年/2月
       short: "%Y年%m月"
       long: ! '%Y年%-m月%-d日'
-      
+  activemodel:
+    attributes:
+      stock_form:
+        process_number: 処理数
+        day: 日程
+        purpose: 使用目的
