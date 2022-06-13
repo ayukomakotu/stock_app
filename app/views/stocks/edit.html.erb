@@ -3,7 +3,7 @@
 <!-- renderされるときは パラメータを渡せないので、既に存在するパラメータを利用する(params[:commit]) --!>
 <% params[:process_name] ? provide(:process_name, params[:process_name]) : provide(:process_name, params[:commit]) %>
 
-<h1><%= "#{yield(:propcess_name)}処理　　#{@stock.item.name}" %></h1>
+<h1><%= "#{yield(:process_name)}処理　　#{@stock.item.name}" %></h1>
 
 <%= form_with(model: @stock_form, url: stock_path, method: :patch, local: true) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
