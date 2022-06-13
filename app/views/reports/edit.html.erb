@@ -1,0 +1,59 @@
+<h1>履歴を修正する</h1>
+<table class="table">
+    <tr>
+        <th>処理日</th>
+        <th>処理名</th>
+        <th>品名</th>
+        <th>数量</th>
+        <th>単位</th>
+        <th>担当者</th>
+        <th>使用目的</th>
+        <th>入力確認</th>
+        <th>確認者</th>
+    </tr>
+    <tr>
+        <td><%= l(@report.day, format: :long) %></td>
+        <td><%= @report.process %></td>
+        <td><%= @report.item.name %></td>
+        <td><%= @report.process_number %></td>
+        <td><%= @report.item.unit %></td>
+        <td><%= @report.user.name %></td>
+        <td><%= @report.purpose %></td>
+        <td>
+            <!-- confirmationがfalseなら未入力を,trueなら入力済を表示 --!>
+            <div id="confirm_form">
+                <% if @report.confirmation == false %>
+                    <%= render partial: 'confirm', locals: { report: @report } %>
+                <% else %>
+                    <%= render partial: 'unconfirm', locals: { report: @report } %>
+                <% end %>
+            </div>
+        <td>
+            <%= @report.confirmer.name if @report.confirmer %>
+        </td>
+    </tr>
+</table>
+
+<%= form_with(model: @report, method: :patch, local: true) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.label "在庫処理日" %>
+    <%= f.date_field :day %>
+
+    <%= f.label "在庫処理名" %>
+    <%= f.select :process, ["出庫", "入庫"] %>
+
+    <%= f.label "在庫処理数" %>
+    <%= f.number_field :process_number %>
+
+    <%= f.label "品名" %>
+    <%= f.number_field :item_id %>
+
+    <%= f.label "担当者" %>
+    <%= f.number_field :user_id %>
+
+    <%= f.label "使用目的" %>
+    <%= f.text_field :purpose %>
+
+    <%= f.submit "修正する", class: "btn btn-primary" %>
+<% end %>

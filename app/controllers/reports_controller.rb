@@ -15,6 +15,10 @@ class ReportsController < ApplicationController
     
   end
 
+  def edit
+    @report = Report.find(params[:id])
+  end
+  
   def update
     @report = Report.find(params[:id])
     if @report.update(report_params)

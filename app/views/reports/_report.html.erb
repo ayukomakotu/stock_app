@@ -18,4 +18,7 @@
     <td>
         <%= report.confirmer.name if report.confirmer %>
     </td>
+    <td>
+        <%= link_to "履歴を修正する", edit_report_path(report) %>
+    </td>
 </tr>
