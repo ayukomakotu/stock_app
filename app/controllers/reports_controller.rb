@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
   def edit
     @report = Report.find(params[:id])
   end
-  
+
   def update
     @report = Report.find(params[:id])
     if @report.update(report_params)
@@ -26,6 +26,12 @@ class ReportsController < ApplicationController
     else
       render 'index'
     end
+  end
+
+  def destroy
+    Report.find(params[:id]).destroy
+    flash[:success] = "処理記録を削除しました"
+    redirect_to reports_path
   end
 
     private
