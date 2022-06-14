@@ -23,6 +23,7 @@ RSpec.describe "ReportItems", type: :system do
         expect(page).to have_content report1.item.unit
         expect(page).to have_content report1.purpose
         expect(page).to have_content "顧客管理ソフトへ未入力の処理が残っています"
+        expect(page).to have_link "削除する", href: report_path(report1)
     end
 
     it "入力確認は正しく処理されたか" do
@@ -56,6 +57,16 @@ RSpec.describe "ReportItems", type: :system do
         expect(page).not_to have_selector "td", text: item1.name
         expect(page).to have_selector "td", text: item2.name
     end
+
+    it "削除できるか" do
+        log_in_system(user1)
+        visit reports_path
+        expect(page).to have_content item1.name
+        first(".link-secondary").click
+        page.driver.browser.switch_to.alert.accept
+        expect(page).not_to have_selector "td", text: item1.name
+    end
+
 end
 
 
