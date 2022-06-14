@@ -22,4 +22,14 @@ RSpec.describe "Reports", type: :request do
     end
   end
 
+  describe "DELETE /destroy" do
+    it "リクエストが成功するか" do
+      log_in_as(user1)
+      expect do
+        delete report_path(report1)
+        expect(response).to have_http_status(302)
+      end.to change { Report.all.count }.by(-1)
+    end
+  end
+
 end
