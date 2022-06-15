@@ -58,13 +58,18 @@ RSpec.describe "ReportItems", type: :system do
         expect(page).to have_selector "td", text: item2.name
     end
 
-    it "削除できるか" do
+    it "削除できるか, 在庫数が戻るか" do
         log_in_system(user1)
         visit reports_path
-        expect(page).to have_content item1.name
-        first(".link-secondary").click
-        page.driver.browser.switch_to.alert.accept
-        expect(page).not_to have_selector "td", text: item1.name
+        expect do
+            expect(page).to have_content item1.name
+            first(".link-secondary").click
+            page.driver.browser.switch_to.alert.accept
+            expect(page).not_to have_selector "td", text: item1.name
+            stock1.reload
+        end.to change { stock1.number }.by(report1.process_number)
+        
+        
     end
 
 end

@@ -5,6 +5,8 @@ RSpec.describe "Reports", type: :request do
   let!(:user1)    { FactoryBot.create(:user1)}
   let!(:item1)    { FactoryBot.create(:item1)}
   let!(:report1)  { FactoryBot.create(:report1, user: user1, item: item1)}
+  let!(:stock1)   { FactoryBot.create(:stock1, item: item1)}
+  
   describe "GET /index" do
     it "リクエストが成功するか" do
       log_in_as(user1)
@@ -23,7 +25,7 @@ RSpec.describe "Reports", type: :request do
   end
 
   describe "DELETE /destroy" do
-    it "リクエストが成功するか" do
+    it "リクエストが成功するか, 数が減るか" do
       log_in_as(user1)
       expect do
         delete report_path(report1)

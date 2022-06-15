@@ -29,6 +29,15 @@ class ReportsController < ApplicationController
   end
 
   def destroy
+    @report = Report.find(params[:id])
+    @item = @report.item
+    @stock = @item.stock
+    if @report.process == "出庫"
+      @stock.update(number: @stock.number + @report.process_number)
+    else 
+      @stock.update(number: @stock.number - @report.process_number)
+    end
+    
     Report.find(params[:id]).destroy
     flash[:success] = "処理記録を削除しました"
     redirect_to reports_path
