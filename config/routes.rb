@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'sessions#new'
   resources :reports, only: [:index, :edit, :update, :destroy]
-  resources :items, only: [:index, :edit, :update]
+  resources :items
   resources :stocks, only: [:edit, :update]
   # 出庫
   # get 'items/out_stock', to: 'items#out_stock'

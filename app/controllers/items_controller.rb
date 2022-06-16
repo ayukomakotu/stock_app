@@ -5,6 +5,9 @@ before_action :logged_in_user
     @items = Item.all
   end
 
+  def new
+  end
+
   def edit
     @item = Item.find(params[:id])
   end
