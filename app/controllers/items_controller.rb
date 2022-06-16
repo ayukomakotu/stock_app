@@ -6,6 +6,7 @@ before_action :logged_in_user
   end
 
   def new
+    @item = Item.new
   end
 
   def edit
