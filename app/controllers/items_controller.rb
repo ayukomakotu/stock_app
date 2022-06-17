@@ -6,11 +6,22 @@ before_action :logged_in_user
   end
 
   def new
-    @item = Item.new
+    @item_form = ItemForm.new
   end
 
   def edit
     @item = Item.find(params[:id])
+  end
+
+  def create
+    @item_form = ItemForm.new(item_form_params)
+    if @item_form.valid?
+      @item_form.save
+      flash[:success] = "新しい在庫品を登録しました"
+      redirect_to items_path
+    else
+      render "new"
+    end
   end
 
   def update
@@ -25,8 +36,8 @@ before_action :logged_in_user
   end
 
   private
-    def item_params
-      params.require(:item).permit(:name, :unit)
+    def item_form_params
+      params.require(:item_form).permit(:name, :unit, :number)
     end
 
     # パラメータによって、入庫、出庫などの処理によってrender先が変わる
