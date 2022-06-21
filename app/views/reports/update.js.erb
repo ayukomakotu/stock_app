@@ -1,2 +1,2 @@
-<% debugger %>
-$("#report").html("<%= escape_javascript(render partial: 'unconfirm', locals: { report: report }) %>");
+$("#follow_form").html("<%= escape_javascript(render('users/unfollow')) %>");
+$("#followers").html('<%= @user.followers.count %>');

@@ -33,7 +33,9 @@ RSpec.describe "InOutStockItems", type: :system do
         it "formの入力値が正常な場合、出庫が成功するか" do
             expect do
                 # formに出庫数を入力
-                fill_in 'stock[process_number]', with: 3
+                fill_in 'stock_form[process_number]', with: 3
+                fill_in 'stock_form[day]', with: Date.today
+                fill_in 'stock_form[purpose]', with: "sample"
                 # 出庫ボタンをクリック
                 click_button'出庫'
                 # 正しいフラッシュメッセージが表示されているかチェック
@@ -42,18 +44,70 @@ RSpec.describe "InOutStockItems", type: :system do
             end.to change { Stock.find(stock1.id).number }.from(30).to(27)
         end
 
-        it "formの出庫数が未入力の場合, 出庫が失敗するか、正しくrenderされるか" do
+        it "formの入力値が正常な場合、履歴が正しく作られるか" do
+            expect do
+                # formに出庫数を入力
+                fill_in 'stock_form[process_number]', with: 3
+                fill_in 'stock_form[day]', with: Date.today
+                fill_in 'stock_form[purpose]', with: "sample"
+                # 出庫ボタンをクリック
+                click_button'出庫'
+            end.to change { Report.all.count }.by(1)
+        end
+
+
+        it "formの出庫数が空の場合, 出庫が失敗するか、正しくrenderされるか" do
             expect do
                 # formにnilを入力
-                fill_in 'stock[process_number]', with: "  "
+                fill_in 'stock_form[process_number]', with: "  "
+                fill_in 'stock_form[purpose]', with: "sample"
                 # 出庫ボタンをクリック
                 click_button'出庫'
                 # エラーメッセージが表示されているかチェック
-                expect(page).to have_content "正しい数値を入力してください"
+                expect(page).to have_selector "#error_explanation"
                 #render先の表示は正しいか
                 expect(page).to have_content "出庫"
                 #出庫数が変化していないか
             end.to_not change { Stock.find(stock1.id).number }
+        end
+
+        it "formの使用目的が空の場合, 出庫が失敗するか、正しくrenderされるか" do
+            expect do
+                # formにnilを入力
+                fill_in 'stock_form[process_number]', with: 3
+                fill_in 'stock_form[purpose]', with: "    "
+                # 出庫ボタンをクリック
+                click_button'出庫'
+                # エラーメッセージが表示されているかチェック
+                expect(page).to have_selector "#error_explanation"
+                #render先の表示は正しいか
+                expect(page).to have_content "出庫"
+                #出庫数が変化していないか
+            end.to_not change { Stock.find(stock1.id).number }
+        end
+
+        # it "formの出庫数が0の場合, 出庫が失敗するか、正しくrenderされるか" do
+        #     expect do
+        #         # formにnilを入力
+        #         fill_in 'stock_form[process_number]', with: 0
+        #         fill_in 'stock_form[purpose]', with: "sample"
+        #         # 出庫ボタンをクリック
+        #         click_button'出庫'
+        #         # エラーメッセージが表示されているかチェック
+        #         expect(page).to have_selector "#error_explanation"
+        #         #render先の表示は正しいか
+        #         expect(page).to have_content "出庫"
+        #         #出庫数が変化していないか
+        #     end.to_not change { Stock.find(stock1.id).number }
+        # end
+
+        it "formの入力値が不正な場合、履歴は作られないか" do
+            expect do
+                # formにnilを入力
+                fill_in 'stock_form[process_number]', with: "  "
+                # 出庫ボタンをクリック
+                click_button'出庫'
+            end.to_not change { Report.all.count }
         end
     end
 
@@ -72,8 +126,9 @@ RSpec.describe "InOutStockItems", type: :system do
 
         it "formの入力値が正常な場合、入庫が成功するか" do
             expect do
-                # formに出庫数を入力
-                fill_in 'stock[process_number]', with: 3
+                # formに入力
+                fill_in 'stock_form[process_number]', with: 3
+                fill_in 'stock_form[day]', with: Date.today
                 # 出庫ボタンをクリック
                 click_button '入庫'
                 # 正しいフラッシュメッセージが表示されているかチェック
@@ -82,18 +137,40 @@ RSpec.describe "InOutStockItems", type: :system do
             end.to change { Stock.find(stock1.id).number }.from(30).to(33)
         end
 
+        it "formの入力値が正常な場合、履歴が正しく作られるか" do
+            expect do
+                # formに出庫数を入力
+                fill_in 'stock_form[process_number]', with: 3
+                # 出庫ボタンをクリック
+                click_button'入庫'
+            end.to change { Report.all.count }.by(1)
+        end
+
         it "formの入庫数が未入力の場合, 出庫が失敗するか、正しくrenderされるか" do
             expect do
                 # formにnilを入力
-                fill_in 'stock[process_number]', with: "  "
+                fill_in 'stock_form[process_number]', with: "  "
+                fill_in 'stock_form[day]', with: Date.today
                 # 出庫ボタンをクリック
                 click_button'入庫'
                 # エラーメッセージが表示されているかチェック
-                expect(page).to have_content "正しい数値を入力してください"
+                expect(page).to have_selector "#error_explanation"
                 #render先の表示は正しいか
                 expect(page).to have_content "入庫"
+                # エラーメッセージが表示されているか
+                expect(page).to have_selector "#error_explanation"
                 #出庫数が変化していないか
             end.to_not change { Stock.find(stock1.id).number }
+        end
+
+        it "formの入力値が不正な場合、履歴は作られないか" do
+            expect do
+                # formにnilを入力
+                fill_in 'stock_form[process_number]', with: "  "
+                fill_in 'stock_form[day]', with: Date.today
+                # 出庫ボタンをクリック
+                click_button'入庫'
+            end.to_not change { Report.all.count }
         end
     end
 

@@ -26,4 +26,6 @@ RSpec.describe "Login", type: :system do
             expect(page).to have_content '番号またはパスワードが間違っています'
         end
     end
+
+    
 end

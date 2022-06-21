@@ -1,9 +1,22 @@
 class ReportsController < ApplicationController
   before_action :logged_in_user
   def index
-    @reports = Report.all.order(day: "DESC").paginate(page: params[:page])
+    if params[:key]
+      @month = params[:key][:month] 
+      @item = params[:key][:item_id]
+      debugger 
+    end
+    # 降順に表示 (order( "DESC"))
+    # 絞込みがあれば絞り込んで表示 　
+    @reports = Report.all.search(@month, @item).order(day: "DESC").paginate(page: params[:page])
+    # 未入力のものがある場合flashが表示される
     uncomfirmed = @reports.map(&:confirmation).find { |com|com == false }
     flash.now[:danger] = "顧客管理ソフトへ未入力の処理が残っています" if uncomfirmed == false
+    
+  end
+
+  def edit
+    @report = Report.find(params[:id])
   end
 
   def update
@@ -15,20 +28,24 @@ class ReportsController < ApplicationController
     end
   end
 
+  def destroy
+    @report = Report.find(params[:id])
+    @item = @report.item
+    @stock = @item.stock
+    if @report.process == "出庫"
+      @stock.update(number: @stock.number + @report.process_number)
+    else 
+      @stock.update(number: @stock.number - @report.process_number)
+    end
+    
+    Report.find(params[:id]).destroy
+    flash[:success] = "処理記録を削除しました"
+    redirect_to reports_path
+  end
+
     private
       def report_params
         params.require(:report).permit(:user_id, :item_id, :process, :process_number,
                         :day, :purpose, :confirmer_id, :confirmation)
-      end
-
-      # パラメータによって、入庫、出庫などの処理によってフラッシュメッセージを使い分ける
-      def update_flash
-        if params[:commit] == "未入力"
-          flash[:success] = "顧客管理ソフトへの入力を確認しました"
-        elsif params[:commit] == "入力済"
-          flash[:success] = "顧客管理ソフトへの入力を未入力に戻しました"
-        else
-          flash[:success] = "履歴を編集しました"
-        end
       end
 end

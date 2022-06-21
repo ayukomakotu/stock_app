@@ -17,6 +17,14 @@ RSpec.describe "ItemsControllers", type: :request do
       expect(response.status).to eq 200
     end
   end
+
+  describe "GET /new" do
+    it "リクエストが成功するか" do
+      log_in_as(user1)
+      get new_item_path
+      expect(response.status).to eq 200
+    end
+  end
 end
 
   

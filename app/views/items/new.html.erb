@@ -1,0 +1,15 @@
+<%= form_with(model: @item_form, url: items_path, local: true) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.label "在庫品名" %>
+    <%= f.text_field :name, class: 'form-control' %>
+
+    <%= f.label "数量" %>
+    <%= f.number_field :number, class: 'form-control' %>
+
+    <%= f.label "単位" %>
+    <%= f.text_field :unit, class: 'form-control' %>
+
+    <%= f.submit "登録", class: "btn btn-primary" %>
+
+<% end %>

@@ -4,7 +4,7 @@
 // ここにcssを書く
 
 //home display
-
+//forms
 .form-signin {
     width: 100%;
     max-width: 330px;
@@ -13,7 +13,17 @@
   }
   
   .form-signin .checkbox {
-    font-weight: 400;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    span {
+      margin-left: 20px;
+      font-weight: normal;
+    }
+  }
+
+  #session_remember_me {
+    width: auto;
+    margin-left: 0;
   }
   
   .form-signin .form-floating:focus-within {

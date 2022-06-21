@@ -1,34 +1,30 @@
 class StockForm
-    include ActiveModel::Model
-    # EventFormでメソッドとして使えるようにする
-    attr_accessor :user_id, :item_id, :process, :process_number, :day, :purpose, :number
-        
+    include ActiveModel::Model # 通常のモデルのようにvalidationなどを使えるようにする
+    include ActiveModel::Attributes # ActiveRecordのカラムのような属性を加えられるようにする
+    # StockFormでメソッドとして使えるようにする
+    attr_accessor :process, :process_number, :day, :purpose, :number, :item_id, :user_id, :id
+
     # validationをひとまとめにする
     with_options presence: true do
-        
+        validates :process
+        validates :process_number
+        validates :day
+        validates :purpose, if: :out_stock_purpose
+    end
+
+    # 0以上でなければならない
+    validates :process_number, numericality: { greater_than: 0 }
+    
+    def out_stock_purpose
+        process == "出庫"
     end
 
     def save
-        @stock.update(number: new_stock)
-        Report.create(user_id: current_user.id, item_id: @item.id, process: params[:commit],
-            process_number: params[:stock][:process_number], day: day)
+        Report.create(user_id: user_id, item_id: item_id, process: process, 
+                process_number: process_number, day: day, purpose: purpose)
     end
 
-    private
-    def stock_params
-      params.require(:stock).permit(:process_number)
-    end
 
-    def report_params
-        params.require(:report).permit(:user_id, :item_id, :process, :process_number,
-                        :day, :purpose, :confirmer_id, :confirmation)
-    end
-    # 入出庫の計算　出庫ならstockからprocess_numberをひいた値を返す、入庫なら足した値を返す
-    def new_stock
-      if params[:commit] == "出庫"
-        @stock.number - stock_params[:process_number].to_i
-      elsif params[:commit] == "入庫"
-        @stock.number + stock_params[:process_number].to_i
-      end
-    end
+
+
 end

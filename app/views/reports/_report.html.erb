@@ -1,5 +1,5 @@
 <tr>
-    <td><%= report.day %></td>
+    <td><%= l(report.day, format: :long) %></td>
     <td><%= report.process %></td>
     <td><%= report.item.name %></td>
     <td><%= report.process_number %></td>
@@ -17,5 +17,10 @@
         </div>
     <td>
         <%= report.confirmer.name if report.confirmer %>
+    </td>
+    <td>
+        <%= link_to "削除する", report, method: :delete, class: "link-secondary",
+                    data: { confirm: "本当に削除しますか？" } %>
+        <!--<%= link_to "履歴を修正する", edit_report_path(report) %> --!>
     </td>
 </tr>
