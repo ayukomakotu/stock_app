@@ -11,5 +11,20 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe SessionsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:user1) { FactoryBot.create(:user1) }
+
+  before do
+    remember(user1)
+  end
+
+  it "sessionがnilの場合のcurrent_user" do
+    expect(user1).to eq current_user
+    expect(logged_in?).to eq true
+  end
+
+  it "remember_digestが不正な場合current_userはnilになるか" do
+    user1.update_attribute(:remember_digest, User.digest(User.new_token))
+    expect(current_user).to eq nil
+  end
+
 end

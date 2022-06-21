@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
     if params[:key]
       @month = params[:key][:month] 
       @item = params[:key][:item_id]
-      debugger 
+      # debugger 
     end
     # 降順に表示 (order( "DESC"))
     # 絞込みがあれば絞り込んで表示 　
