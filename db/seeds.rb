@@ -12,20 +12,20 @@ end
 
 # ユーザーをまとめて生成する
 10.times do |n|
-  User.create!(name: Faker::Name.name, number: n)
+  User.create!(name: Faker::Name.name, number: n, password: "password")
 end
 
-user = User.create!(name: "山根", number: 0202)
+user = User.create!(name: "山根", number: 0202, password: "password")
 
 (1..3).each do |n|
-    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "出庫", process_number: 3,
-    day: Date.today, purpose: "コダマ邸使用のため", confirmer: nil, confirmation: false)
-    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "出庫", process_number: 3,
-    day: Date.today, purpose: nil, confirmer: user.id, confirmation: true)
-    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "入庫", process_number: 3,
-    day: Date.today, purpose: "コダマ邸使用のため", confirmer: nil, confirmation: false)
-    Report.create(user_id: User.find(n), item_id: Item.find(n), process: "入庫", process_number: 3,
-    day: Date.today, purpose: nil, confirmer: user.id, confirmation: true)
+    Report.create(user_id: User.find(n).id, item_id: Item.find(n).id, process: "出庫", process_number: 3,
+    day: Date.today, purpose: "コダマ邸使用のため", confirmer_id: nil, confirmation: false)
+    Report.create(user_id: User.find(n).id, item_id: Item.find(n).id, process: "出庫", process_number: 3,
+    day: Date.today, purpose: nil, confirmer_id: user.id, confirmation: true)
+    Report.create(user_id: User.find(n).id, item_id: Item.find(n).id, process: "入庫", process_number: 3,
+    day: Date.today, purpose: "コダマ邸使用のため", confirmer_id: nil, confirmation: false)
+    Report.create(user_id: User.find(n).id, item_id: Item.find(n).id, process: "入庫", process_number: 3,
+    day: Date.today, purpose: nil, confirmer_id: user.id, confirmation: true)
 end
 
 (1..10).each do |n|
