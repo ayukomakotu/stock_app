@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2022_06_19_111306) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "unit"
@@ -21,8 +24,8 @@ ActiveRecord::Schema.define(version: 2022_06_19_111306) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "item_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
     t.string "process"
     t.integer "process_number"
     t.date "day"
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 2022_06_19_111306) do
 
   create_table "stocks", force: :cascade do |t|
     t.integer "number"
-    t.integer "item_id", null: false
+    t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_stocks_on_item_id", unique: true
