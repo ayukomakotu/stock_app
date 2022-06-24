@@ -52,7 +52,7 @@ RSpec.describe "ReportItems", type: :system do
         expect(page).not_to have_content "2022年6月"
         expect(page).to have_content "2022年5月"
         fill_in "key_month", with: ""
-        find("#key_item_id").find("option[value='2']").select_option
+        select(value = "2", from: "key_item_id")
         click_on "絞込み"
         expect(page).not_to have_selector "td", text: item1.name
         expect(page).to have_selector "td", text: item2.name

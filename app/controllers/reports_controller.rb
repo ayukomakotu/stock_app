@@ -6,6 +6,7 @@ class ReportsController < ApplicationController
       @item = params[:key][:item_id]
       # debugger 
     end
+    @items = Item.all
     # 降順に表示 (order( "DESC"))
     # 絞込みがあれば絞り込んで表示 　
     @reports = Report.all.search(@month, @item).order(day: "DESC").paginate(page: params[:page])
