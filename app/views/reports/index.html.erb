@@ -14,19 +14,21 @@
 <div>
     絞込み条件 | <%= l(Date.parse("#{@month}" + "-1"), format: :short) if @month.present? %>
 </div>
-<table class="table">
-    <tr>
-        <th>処理日</th>
-        <th>処理名</th>
-        <th>品名</th>
-        <th>数量</th>
-        <th>単位</th>
-        <th>担当者</th>
-        <th>使用目的</th>
-        <th>入力確認</th>
-        <th>確認者</th>
-    </tr>
-<%= render @reports %>
+<div class="table-responsive-sm">
+    <table class="table">
+        <tr>
+            <th>処理日</th>
+            <th>処理名</th>
+            <th>品名</th>
+            <th>数量</th>
+            <th>単位</th>
+            <th>担当者</th>
+            <th>使用目的</th>
+            <th>入力確認</th>
+            <th>確認者</th>
+        </tr>
+        <%= render @reports %>
 
-</table>
+    </table>
+</div>
 <%= will_paginate %>
