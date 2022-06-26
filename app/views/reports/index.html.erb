@@ -14,7 +14,7 @@
 <div>
     絞込み条件 | <%= l(Date.parse("#{@month}" + "-1"), format: :short) if @month.present? %>
 </div>
-<div class="table-responsive-sm">
+<div class="table-responsive">
     <table class="table">
         <tr>
             <th>処理日</th>
@@ -27,7 +27,7 @@
             <th>入力確認</th>
             <th>確認者</th>
         </tr>
-        <%= render @reports %>
+    <%= render @reports %>
 
     </table>
 </div>

@@ -1,42 +1,31 @@
-<div class="table-responsive-sm">
-    <table class="table">
-        <tr>
-            <th>
-                品名
-            </th>
-            <th>
-                在庫数
-            </th>
-            <th>
-                単位
-            </th>
-            <th>
-                出入庫処理
-            </th>
-            
-        </tr>
-        <% @items.each do |item| %>
-            <tr>
-                <td>
-                    <%= item.name %>
-                </td>
-                <td>
-                    <%= item.stock.number %>
-                </td>
-                <td>
-                    <%= item.unit %>
-                </td>
-                <td>
-                    <div>
-                    <%= link_to "出庫", edit_stock_path(item.stock, process_name: "出庫"), class: "btn btn-warning" %>
+<table class="column_table">
+	<thead>
+		<tr>
+			<th>品名</th>
+			<th>在庫数</th>
+			<th>処理</th>
+		</tr>
+	</thead>
+	<tbody>
+      <% @items.each do |item| %>
+		<tr>
+			<th><%= item.name %></th>
+			<td><%= item.stock.number %> <%= item.unit %></td>
+			<td>
+                <div>
+                    <%= link_to "出庫", edit_stock_path(item.stock, process_name: "出庫"), 
+                                                        class: "btn btn-warning" %>
                 
-                    <%= link_to "入庫", edit_stock_path(item.stock, process_name: "入庫"), class: "btn btn-info" %>
-                    </div>
-                </td>
-            </tr>
-        <% end %>
-    <table>
-</div>
+                    <%= link_to "入庫", edit_stock_path(item.stock, process_name: "入庫"), 
+                                                        class: "btn btn-info" %>
+                </div>
+            </td>
+		</tr>
+      <% end %>
+	</tbody>
+</table>
+
 <div>
     <%= link_to "在庫品を追加する", new_item_path %>
 </div>
+
