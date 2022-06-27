@@ -50,7 +50,7 @@
 table {
     // 出入庫ボタン
     .btn {
-        margin-: 2px;
+        margin: 2px;
     }
 }
 .column_table{
@@ -129,3 +129,101 @@ table {
           display: inline;
         }        
 }
+
+
+
+
+// 履歴一覧
+// body {
+//     font-family: "Open Sans", sans-serif;
+//     line-height: 1.25;
+//   }
+  
+  .report_table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    padding: 0;
+    width: 650px;
+    // table-layout: fixed;
+  }
+  
+  .report_table tr {
+    background-color: #e6f2f5;
+    padding: .35em;
+    border-bottom: 2px solid #fff;
+  }
+  .report_table th,
+  .report_table td {
+    padding: 1em 10px 1em 1em;
+    // border-right: 2px solid #fff;
+  }
+  .report_table th {
+    font-size: .85em;
+  }
+  .report_table thead tr{
+    background-color: #167F92;
+    color:#fff;
+  }
+  .report_table tbody th {
+      background: #e6f2f5;
+  }
+  .txt{
+     text-align: left;
+     font-size: .85em;
+  }
+  .price{
+    text-align: right;
+    color: #167F92;
+    font-weight: bold;
+  }
+  .non{
+    color: #167F92;
+  }
+  @media screen and (max-width: 600px) {
+    .report_table {
+      border: 0;
+      width:100%
+    }
+    .report_table th{
+      background-color: #167F92;
+      display: block;
+      border-right: none;
+    }
+    .report_table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+    .report_table tr {
+      display: block;
+      margin-bottom: .625em;
+    }
+    .report_table td {
+      border-bottom: 1px solid #bbb;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+      position: relative;
+      padding: .625em .625em .625em 4em;
+      border-right: none;
+    }
+    
+    .report_table td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      position: absolute;
+      left: 10px;
+      color: #167F92;
+    }
+    .report_table td:last-child {
+      border-bottom: 0;
+    }
+    .report_table tbody th {
+      color: #fff;
+  }
+  }

@@ -1,26 +1,31 @@
-<tr>
-    <td><%= l(report.day, format: :long) %></td>
-    <td><%= report.process %></td>
-    <td><%= report.item.name %></td>
-    <td><%= report.process_number %></td>
-    <td><%= report.item.unit %></td>
-    <td><%= report.user.name %></td>
-    <td><%= report.purpose %></td>
-    <td>
-        <!-- confirmationがfalseなら未入力を,trueなら入力済を表示 --!>
-        <div id="confirm_form">
-            <% if report.confirmation == false %>
-                <%= render partial: 'confirm', locals: { report: report } %>
+<tbody>
+    <tr>
+        <th><%= l(report.day, format: :long) %> <%= report.process %></th>
+        <td data-label="品名" class="txt"><%= report.item.name %></td>
+        <td data-label="数量　単位" class="txt"><%= report.process_number %> <%= report.item.unit %></td>
+        <td data-label="担当者" class="txt"><%= report.user.name %></td>
+        <td data-label="使用目的" class="txt">
+            <% if report.purpose %>
+                <%= report.purpose if report.purpose %>
             <% else %>
-                <%= render partial: 'unconfirm', locals: { report: report } %>
+                　　　
             <% end %>
-        </div>
-    <td>
-        <%= report.confirmer.name if report.confirmer %>
-    </td>
-    <td>
-        <%= link_to "削除する", report, method: :delete, class: "link-secondary",
-                    data: { confirm: "本当に削除しますか？" } %>
-        <!--<%= link_to "履歴を修正する", edit_report_path(report) %> --!>
-    </td>
-</tr>
+        </td>
+        <td data-label="入力確認" class="txt">
+            <!-- confirmationがfalseなら未入力を,trueなら入力済を表示 --!>
+            <div id="confirm_form">
+                <% if report.confirmation == false %>
+                    <%= render partial: 'confirm', locals: { report: report } %>
+                <% else %>
+                    <%= render partial: 'unconfirm', locals: { report: report } %>
+                    確認者: <%= report.confirmer.name if report.confirmer %>
+                <% end %>
+            </div>
+        </td>
+        <td>
+            <%= link_to "削除する", report, method: :delete, class: "link-secondary",
+                        data: { confirm: "本当に削除しますか？" } %>
+            <!--<%= link_to "履歴を修正する", edit_report_path(report) %> --!>
+        </td>
+    </tr>
+</tbody>
