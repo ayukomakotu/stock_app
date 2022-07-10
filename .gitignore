@@ -41,3 +41,6 @@ yarn-debug.log*
 
 # ヒストリーを無視
 .history/
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
