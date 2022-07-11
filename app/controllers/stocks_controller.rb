@@ -20,7 +20,7 @@ class StocksController < ApplicationController
     else
       # render先にパラメータとしてprocess_name: params[:commit]を送信
       # stocks/editで入庫と出庫の切り替わりができるようにパラメータを渡す
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 

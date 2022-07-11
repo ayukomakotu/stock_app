@@ -9,6 +9,7 @@ RSpec.describe "InOutStockItems", type: :system do
         visit edit_stock_path(stock1)
         expect(current_path).to eq login_path
         log_in_system(user1)
+        visit current_path #ページをリロード
         expect(current_path).to eq edit_stock_path(stock1)
     end
     

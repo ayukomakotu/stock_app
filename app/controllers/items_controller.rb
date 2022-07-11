@@ -20,7 +20,7 @@ before_action :logged_in_user
       flash[:success] = "新しい在庫品を登録しました"
       redirect_to items_path
     else
-      render "new"
+      render "new", status: :unprocessable_entity
     end
   end
 

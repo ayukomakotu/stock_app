@@ -41,7 +41,7 @@ class ReportsController < ApplicationController
     
     Report.find(params[:id]).destroy
     flash[:success] = "処理記録を削除しました"
-    redirect_to reports_path
+    redirect_to reports_path, status: :see_other
   end
 
     private

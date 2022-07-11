@@ -29,7 +29,7 @@ RSpec.describe "Reports", type: :request do
       log_in_as(user1)
       expect do
         delete report_path(report1)
-        expect(response).to have_http_status(302)
+        expect(response).to have_http_status(303)
       end.to change { Report.all.count }.by(-1)
     end
   end

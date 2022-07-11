@@ -12,13 +12,13 @@ class SessionsController < ApplicationController
       redirect_back_or items_path
     else
       flash.now[:danger] = '番号またはパスワードが間違っています'
-      render 'new'
+      render 'new', status: :unprocessable_entity
     end
   end
 
   def destroy
     log_out if logged_in?
-    redirect_to login_path
+    redirect_to login_path, status: :see_other
     flash[:info] = "ログアウトしました"
   end
 end
