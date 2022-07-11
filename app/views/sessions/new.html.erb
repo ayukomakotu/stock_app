@@ -6,7 +6,7 @@
 
 
 
-  <%= form_with url: login_path, scope: :session, local: true do |f| %>
+  <%= form_with url: login_path, scope: :session, local: false do |f| %>
     
     <div class="form-floating">
         <%= f.number_field :number, autofocus: true, 
