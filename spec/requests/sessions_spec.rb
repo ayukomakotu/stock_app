@@ -23,6 +23,7 @@ RSpec.describe "Sessions", type: :request do
       post login_path, params: { session: { number: user1.number, password: user1.password }}
       delete logout_path
       expect(response).to have_http_status(303)
+      expect(response).to redirect_to login_path
     end
 
     it "二番目のウインドウでのログアウト" do

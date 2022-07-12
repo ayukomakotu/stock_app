@@ -5,13 +5,13 @@ RSpec.describe "InOutStockItems", type: :system do
     let!(:item1)  { FactoryBot.create(:item1) }
     let!(:stock1)   { FactoryBot.create(:stock1, item: item1)}
 
-    it "日ログイン状態でログイン画面に戻される、ログインすると、在庫管理画面に戻る" do
-        visit edit_stock_path(stock1)
-        expect(current_path).to eq login_path
-        log_in_system(user1)
-        visit current_path #ページをリロード
-        expect(current_path).to eq edit_stock_path(stock1)
-    end
+    # it "日ログイン状態でログイン画面に戻される、ログインすると、在庫管理画面に戻る" do
+    #     visit edit_stock_path(stock1)
+    #     expect(current_path).to eq login_path
+    #     log_in_system(user1)
+    #     visit current_path #ページをリロード
+    #     expect(current_path).to eq edit_stock_path(stock1)
+    # end 不安定なため削除　request specへ移行
     
     describe '出庫' do
         before do

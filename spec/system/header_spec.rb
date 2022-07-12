@@ -14,7 +14,7 @@ RSpec.describe "Header", type: :system do
             expect(current_path).to eq reports_path
             click_on "ログアウト"
             visit current_path
-            expect(current_path).to eq login_path
+            expect(page).to have_content "ログインしてください"
         end
     end
 
