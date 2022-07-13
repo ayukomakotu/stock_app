@@ -74,4 +74,9 @@ RSpec.configure do |config|
     fill_in 'session[password]', with: user.password
     click_button 'ログイン'
   end
+
+  def out_stock
+    patch stock_path(stock1), params: { stock_form: { process: "出庫", process_number: 5, 
+              day: Date.today, purpose: "sample", user_id: user1.id, item_id: item1.id }}
+  end
 end
