@@ -24,6 +24,7 @@ RSpec.describe "InOutStockItems", type: :system do
             visit items_path
             # 出庫へのリンクをクリック
             click_link '出庫'
+            debugger
         end
 
         it "出庫ページに遷移しているか" do

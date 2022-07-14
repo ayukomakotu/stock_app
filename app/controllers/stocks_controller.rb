@@ -13,7 +13,12 @@ class StocksController < ApplicationController
     @item = Item.find(@stock.item_id)
     @stock_form = StockForm.new(stock_form_params)
     if @stock_form.valid? 
-      @stock.update(number: new_stock)
+      # in_out(@stock)
+      if params[:commit] == "出庫"
+        @stock.update(number: stock.number - stock_form_params[:process_number].to_i)
+      elsif params[:commit] == "入庫"
+        @stock.update(number: stock.number + stock_form_params[:process_number].to_i)
+      end
       @stock_form.save
       update_flash
       redirect_to items_path
@@ -35,11 +40,12 @@ class StocksController < ApplicationController
     end
 
     # 入出庫の計算　出庫ならstockからprocess_numberをひいた値を返す、入庫なら足した値を返す
-    def new_stock
+    # request_specでローカル変数が使えないためにエラーが発生したので、ローカル変数を使わずに編集した
+    def in_out(stock)
       if params[:commit] == "出庫"
-        @stock.number - stock_form_params[:process_number].to_i
+        stock.update(number: stock.number - stock_form_params[:process_number].to_i)
       elsif params[:commit] == "入庫"
-        @stock.number + stock_form_params[:process_number].to_i
+        stock.update(number: stock.number + stock_form_params[:process_number].to_i)
       end
     end
 
