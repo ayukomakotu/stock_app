@@ -32,7 +32,7 @@ RSpec.describe "Stocks", type: :request do
         expect do
           patch stock_path(stock1), params: { stock_form: { process: "出庫", process_number: 5, 
               day: Date.today, purpose: "sample", user_id: user1.id, item_id: item1.id }}
-        end.to change { Stock.first.number }.by(5)
+        end.to change { Stock.find(stock1.id).number }.from(30).to(25)
       end
 
       it "パラメータが正しいときreportが作成されるか" do

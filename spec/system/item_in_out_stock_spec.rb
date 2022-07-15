@@ -24,7 +24,6 @@ RSpec.describe "InOutStockItems", type: :system do
             visit items_path
             # 出庫へのリンクをクリック
             click_link '出庫'
-            debugger
         end
 
         it "出庫ページに遷移しているか" do
@@ -72,7 +71,7 @@ RSpec.describe "InOutStockItems", type: :system do
             visit items_path
             expect(page).to have_content stock1.number
             visit reports_path
-            expect(page).not_to have_content item1.name
+            expect(page).not_to have_selector "key[item_id]", text: item1.name
         end
 
         it "formの使用目的が空の場合, 出庫が失敗するか、正しくrenderされるか" do

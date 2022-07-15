@@ -19,7 +19,7 @@ RSpec.describe "Sessions", type: :request do
   end
 
   describe "DELETE /loguot" do
-    it "リクエストが成功するか" do
+    it "リクエストが成功するか, 正しくリダイレクトするか" do
       post login_path, params: { session: { number: user1.number, password: user1.password }}
       delete logout_path
       expect(response).to have_http_status(303)
