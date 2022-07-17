@@ -14,24 +14,28 @@ RSpec.describe "InOutStockItems", type: :system do
     # end 不安定なため削除　request specへ移行
     
     describe '出庫' do
-        before do
-            # visit login_path
-            # fill_in 'session[number]', with: user1.number
-            # fill_in 'session[password]', with: user1.password
-            # click_button 'ログイン'
-            log_in_system(user1)
-
-            visit items_path
-            # 出庫へのリンクをクリック
-            click_link '出庫'
-        end
+        # before do
+        #     # visit login_path
+        #     # fill_in 'session[number]', with: user1.number
+        #     # fill_in 'session[password]', with: user1.password
+        #     # click_button 'ログイン'
+        #     log_in_system(user1)
+        #     visit items_path
+        #     click_link '出庫'
+        # end
 
         it "出庫ページに遷移しているか" do
+            log_in_system(user1)
+            visit items_path
+            click_link '出庫'
             expect(current_path).to eq edit_stock_path(stock1)
             expect(page).to have_content "出庫"
         end
 
         it "formの入力値が正常な場合、出庫が成功するか" do
+            log_in_system(user1)
+            visit items_path
+            click_link '出庫'
             # formに出庫数を入力
             fill_in 'stock_form[process_number]', with: 3
             fill_in 'stock_form[day]', with: Date.today
@@ -46,6 +50,9 @@ RSpec.describe "InOutStockItems", type: :system do
         end
 
         it "formの入力値が正常な場合、履歴が正しく作られるか" do
+            log_in_system(user1)
+            visit items_path
+            click_link '出庫'
             # formに出庫数を入力
             fill_in 'stock_form[process_number]', with: 3
             fill_in 'stock_form[day]', with: Date.today
@@ -58,6 +65,9 @@ RSpec.describe "InOutStockItems", type: :system do
 
 
         it "formの出庫数が空の場合, 出庫が失敗するか、正しくrenderされるか" do
+            log_in_system(user1)
+            visit items_path
+            click_link '出庫'
             # formにnilを入力
             fill_in 'stock_form[process_number]', with: "  "
             fill_in 'stock_form[purpose]', with: "sample"
@@ -75,6 +85,9 @@ RSpec.describe "InOutStockItems", type: :system do
         end
 
         it "formの使用目的が空の場合, 出庫が失敗するか、正しくrenderされるか" do
+            log_in_system(user1)
+            visit items_path
+            click_link '出庫'
             expect do
                 # formにnilを入力
                 fill_in 'stock_form[process_number]', with: 3
@@ -105,6 +118,10 @@ RSpec.describe "InOutStockItems", type: :system do
         # end
 
         it "formの入力値が不正な場合、履歴は作られないか" do
+            log_in_system(user1)
+            visit items_path
+            save_and_open_page
+            click_link '出庫'
             expect do
                 # formにnilを入力
                 fill_in 'stock_form[process_number]', with: "  "

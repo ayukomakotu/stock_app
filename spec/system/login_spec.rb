@@ -7,9 +7,8 @@ RSpec.describe "Login", type: :system do
 
         it "ログインが成功する" do
             visit login_path 
-            fill_in 'session[number]', with: user1.number
-            fill_in 'session[password]', with: user1.password
-            
+            fill_in 'session[number]', with: 1000
+            fill_in 'session[password]', with: "password"
             click_button 'ログイン'
             expect(current_path).to eq items_path
             expect(page).to have_content 'ログインに成功しました'

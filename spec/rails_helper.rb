@@ -59,6 +59,7 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+  Capybara.asset_host = "http://127.0.0.1:3000"
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   # テストユーザーとしてログインする
@@ -73,6 +74,11 @@ RSpec.configure do |config|
     fill_in 'session[number]', with: user.number
     fill_in 'session[password]', with: user.password
     click_button 'ログイン'
+  end
+
+  # テストユーザーがログイン中の場合にtrueを返す
+  def is_logged_in?
+    !session[:user_id].nil?
   end
 
   def out_stock

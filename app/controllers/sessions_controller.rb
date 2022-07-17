@@ -6,9 +6,9 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(number: params[:session][:number].to_i)
     if user && user.authenticate(params[:session][:password])
-      flash[:success] = "ログインに成功しました"
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      flash[:success] = "ログインに成功しました"
       redirect_back_or items_path
     else
       flash.now[:danger] = '番号またはパスワードが間違っています'
