@@ -11,7 +11,8 @@ RSpec.describe "Header", type: :system do
             fill_in 'session[password]', with: "password"
             click_button 'ログイン'
             find(".navbar-brand").click
-            expect(current_path).to eq root_path
+            visit current_path #不安定なので追加
+            expect(current_path).to eq items_path
             click_on "在庫表"
             expect(current_path).to eq items_path
             click_on "処理履歴"

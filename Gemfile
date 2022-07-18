@@ -27,6 +27,8 @@ gem 'rexml'
 gem 'rss'
 gem 'devise'
 gem 'dotenv-rails'
+# rspecが不安定でたまにログインできずに落ちるバグを解消するのにAccess-Control-Allow-Origin.の設定が必要だったため追加
+gem 'rack-cors'
 
 group :development, :test do
   # gem 'sqlite3'

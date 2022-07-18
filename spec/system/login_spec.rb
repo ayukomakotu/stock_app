@@ -10,8 +10,9 @@ RSpec.describe "Login", type: :system do
             fill_in 'session[number]', with: 1000
             fill_in 'session[password]', with: "password"
             click_button 'ログイン'
-            expect(current_path).to eq items_path
             expect(page).to have_content 'ログインに成功しました'
+            visit current_path
+            expect(current_path).to eq items_path
         end
     end
 

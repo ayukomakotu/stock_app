@@ -9,7 +9,12 @@ RSpec.describe "IndexItems", type: :system do
         visit items_path
         # 日ログイン状態でログイン画面に戻される
         expect(current_path).to eq login_path
-        log_in_system(user1)
+        # log_in_system(user1) requireに依存すると不安定なため削除
+        visit login_path 
+        fill_in 'session[number]', with: 1000
+        fill_in 'session[password]', with: "password"
+        click_button 'ログイン'
+        visit current_path
         visit items_path
         # ページ上に特定の文字列が表示されているか
         expect(page).to have_content item1.name

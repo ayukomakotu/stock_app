@@ -20,10 +20,9 @@ RSpec.describe "InOutStockItems", type: :system do
             fill_in 'session[password]', with: "password"
             click_button 'ログイン'
             # log_in_system(user1) requireに依存すると不安定になるため削除
-
+            visit current_path
             visit items_path
             # 出庫へのリンクをクリック
-            save_and_open_page
             click_link '出庫'
         end
 
@@ -72,7 +71,7 @@ RSpec.describe "InOutStockItems", type: :system do
             visit items_path
             expect(page).to have_content stock1.number
             visit reports_path
-            expect(page).not_to have_content item1.name
+            expect(page).not_to have_selector "td", text:item1.name
         end
 
         it "formの使用目的が空の場合, 出庫が失敗するか、正しくrenderされるか" do
@@ -121,10 +120,10 @@ RSpec.describe "InOutStockItems", type: :system do
             fill_in 'session[number]', with: 1000
             fill_in 'session[password]', with: "password"
             click_button 'ログイン'
+            visit current_path
             # log_in_system(user1) requireに依存すると不安定になるため削除
             visit items_path
             # 出庫へのリンクをクリック
-            save_and_open_page
             click_link '入庫'
         end
 

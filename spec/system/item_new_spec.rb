@@ -4,7 +4,12 @@ RSpec.describe "ItemNew", type: :system do
     let!(:user1)  { FactoryBot.create(:user1) }
 
     it "正しい値を入力すると登録できるか" do
-        log_in_system(user1)
+        # log_in_system(user1) requireに依存すると不安定なため削除
+        visit login_path 
+        fill_in 'session[number]', with: 1000
+        fill_in 'session[password]', with: "password"
+        click_button 'ログイン'
+        visit current_path
         visit new_item_path
         fill_in "item_form[name]", with: "sample"
         fill_in "item_form[number]", with: 30
@@ -16,7 +21,12 @@ RSpec.describe "ItemNew", type: :system do
     end
 
     it "不正な値を入力すると、失敗するか" do
-        log_in_system(user1)
+        # log_in_system(user1) requireに依存すると不安定なため削除
+        visit login_path 
+        fill_in 'session[number]', with: 1000
+        fill_in 'session[password]', with: "password"
+        click_button 'ログイン'
+        visit current_path
         visit new_item_path
         fill_in "item_form[name]", with: "    "
         fill_in "item_form[number]", with: 30
