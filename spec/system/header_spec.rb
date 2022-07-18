@@ -5,7 +5,11 @@ RSpec.describe "Header", type: :system do
 
     context 'ログイン状態' do
         it "リンクが正しいか" do
-            log_in_system(user1)
+            # log_in_system(user1) rails_helper内でメソッド化して使うと不安定になるため削除
+            visit login_path
+            fill_in 'session[number]', with: 1000
+            fill_in 'session[password]', with: "password"
+            click_button 'ログイン'
             find(".navbar-brand").click
             expect(current_path).to eq root_path
             click_on "在庫表"
