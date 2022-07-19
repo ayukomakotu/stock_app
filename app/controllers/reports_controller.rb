@@ -1,8 +1,9 @@
 class ReportsController < ApplicationController
   before_action :logged_in_user
   def index
+    # debugger
     if params[:key]
-      @month = params[:key][:month] 
+      @month = "#{params[:key][:year]}-#{params[:key][:month]}"
       @item = params[:key][:item_id]
       # debugger 
     end

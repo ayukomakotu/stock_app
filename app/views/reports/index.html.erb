@@ -1,9 +1,9 @@
 <div>
     絞込み
     <%= form_with(url: reports_path, scope: :key, local: true, method: :get) do |f| %>
-
-        <%= f.label :月 %>
-        <%= f.month_field :month %>
+        
+        <%= select_year Date.today.year, prefix: "key", include_blank: true %>年
+        <%= select_month Date.today.month, prefix: "key", include_blank: true %>月
 
         <%= f.label :品名 %>
         <%= f.collection_select :item_id, @items, :id, :name, include_blank: true %> 
