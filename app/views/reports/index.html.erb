@@ -2,6 +2,8 @@
     絞込み
     <%= form_with(url: reports_path, scope: :key, local: true, method: :get) do |f| %>
         
+        <%= f.date_field :from %>から
+        <%= f.date_field :to %>まで
         <%= select_year Date.today.year, prefix: "key", include_blank: true %>年
         <%= select_month Date.today.month, prefix: "key", include_blank: true %>月
 

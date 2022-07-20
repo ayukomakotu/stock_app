@@ -3,14 +3,17 @@ class ReportsController < ApplicationController
   def index
     # debugger
     if params[:key]
+      from = params[:key][:from]
+      to = params[:key][:to]
       @month = "#{params[:key][:year]}-#{params[:key][:month]}"
-      @item = params[:key][:item_id]
+      item = params[:key][:item_id].to_i
       # debugger 
     end
     @items = Item.all
     # 降順に表示 (order( "DESC"))
     # 絞込みがあれば絞り込んで表示 　
-    @reports = Report.all.search(@month, @item).order(day: "DESC").paginate(page: params[:page])
+    @reports = Report.all.search(from, to, item).order(day: "DESC").paginate(page: params[:page])
+    # debugger
     # 未入力のものがある場合flashが表示される
     uncomfirmed = @reports.map(&:confirmation).find { |com|com == false }
     flash.now[:danger] = "顧客管理ソフトへ未入力の処理が残っています" if uncomfirmed == false

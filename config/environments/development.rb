@@ -58,8 +58,8 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = false
-  # cssが読み込まれない時のため
-  config.assets.digest = false
+  # cssが読み込まれないため削除
+  # config.assets.digest = false
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
