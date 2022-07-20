@@ -34,16 +34,17 @@ class Report < ApplicationRecord
   #   end
   # }
 
+  # fromからtoまでの日付、なおかつ指定したitemで検索
   scope :search, -> from, to, item {
     if item.present?
       if from.present? && to.present?
-        where(day: from..to).where(item_id: item)
+        where(day: from..to).where(item_id: item.id)
       elsif from.present?
-        where('day >= ?', from).where(item_id: item)
+        where('day >= ?', from).where(item_id: item.id)
       elsif to.present?
-        where('day <= ?', to).where(item_id: item)
+        where('day <= ?', to).where(item_id: item.id)
       else
-        where(item_id: item)
+        where(item_id: item.id)
       end
     else
       if from.present? && to.present?

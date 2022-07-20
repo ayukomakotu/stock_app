@@ -4,8 +4,6 @@
         
         <%= f.date_field :from %>から
         <%= f.date_field :to %>まで
-        <%= select_year Date.today.year, prefix: "key", include_blank: true %>年
-        <%= select_month Date.today.month, prefix: "key", include_blank: true %>月
 
         <%= f.label :品名 %>
         <%= f.collection_select :item_id, @items, :id, :name, include_blank: true %> 
@@ -14,7 +12,9 @@
     <% end %>
 </div>
 <div>
-    絞込み条件 | <%= l(Date.parse("#{@month}" + "-1"), format: :short) if @month.present? %>
+    絞込み条件 | <%= l(Date.parse("#{@from}"), format: :short) + "から" if @from.present? %>
+               <%= l(Date.parse("#{@to}"), format: :short) + "まで" if @from.present? %>
+               <%= "品名" + @item.name if @item.present? %>
 </div>
 <div class="table-responsive">
     <table class="report_table">

@@ -1,19 +1,18 @@
 class ReportsController < ApplicationController
   before_action :logged_in_user
   def index
-    # debugger
+  # debugger
     if params[:key]
-      from = params[:key][:from]
-      to = params[:key][:to]
-      @month = "#{params[:key][:year]}-#{params[:key][:month]}"
-      item = params[:key][:item_id].to_i
-      # debugger 
+      @from = params[:key][:from] if params[:key][:from].present?
+      @to = params[:key][:to] if params[:key][:to].present?
+      @item = Item.find(params[:key][:item_id].to_i) if params[:key][:item_id].present?
+      # debugger
     end
+    # debugger 
     @items = Item.all
     # 降順に表示 (order( "DESC"))
     # 絞込みがあれば絞り込んで表示 　
-    @reports = Report.all.search(from, to, item).order(day: "DESC").paginate(page: params[:page])
-    # debugger
+    @reports = Report.all.search(@from, @to, @item).order(day: "DESC").paginate(page: params[:page])
     # 未入力のものがある場合flashが表示される
     uncomfirmed = @reports.map(&:confirmation).find { |com|com == false }
     flash.now[:danger] = "顧客管理ソフトへ未入力の処理が残っています" if uncomfirmed == false
