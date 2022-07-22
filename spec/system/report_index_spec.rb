@@ -69,11 +69,13 @@ RSpec.describe "ReportItems", type: :system do
         visit current_path
         visit reports_path
         visit current_path
-        fill_in "key[month]", with: "002022-5"
+        fill_in "key[from]", with: "002022-5-1"
+        fill_in "key[to]", with: "002022-5-30"
         click_on "絞込み"
         expect(page).not_to have_content "2022年6月"
         expect(page).to have_content "2022年5月"
-        fill_in "key_month", with: ""
+        fill_in "key[from]", with: ""
+        fill_in "key[to]", with: ""
         select(value = "2", from: "key_item_id")
         click_on "絞込み"
         expect(page).not_to have_selector "td", text: item1.name

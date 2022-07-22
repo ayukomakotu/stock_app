@@ -1,9 +1,9 @@
 <div>
     絞込み
     <%= form_with(url: reports_path, scope: :key, local: true, method: :get) do |f| %>
-
-        <%= f.label :月 %>
-        <%= f.month_field :month %>
+        
+        <%= f.date_field :from %>から
+        <%= f.date_field :to %>まで
 
         <%= f.label :品名 %>
         <%= f.collection_select :item_id, @items, :id, :name, include_blank: true %> 
@@ -12,7 +12,9 @@
     <% end %>
 </div>
 <div>
-    絞込み条件 | <%= l(Date.parse("#{@month}" + "-1"), format: :short) if @month.present? %>
+    絞込み条件 | <%= l(Date.parse("#{@from}"), format: :short) + "から" if @from.present? %>
+               <%= l(Date.parse("#{@to}"), format: :short) + "まで" if @from.present? %>
+               <%= "品名" + @item.name if @item.present? %>
 </div>
 <div class="table-responsive">
     <table class="report_table">
